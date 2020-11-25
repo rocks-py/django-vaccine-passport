@@ -3,4 +3,4 @@ username: artem
 password: 9898
 
 # run jupyter notebook
-python manage.py shell_plus --notebook"# django-vaccine-passport" 
+python manage.py shell_plus --notebook"
