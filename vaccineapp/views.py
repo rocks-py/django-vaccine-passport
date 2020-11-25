@@ -43,3 +43,25 @@ def index(request):
     context['personForm'] = person
     # return HttpResponse("Hello, world. !!! Artemka")
     return render(request, 'index.html', context) 
+
+
+def collection_list(request):
+    context = {}
+
+    # search = request.GET.get('search', '')
+    form = SearchForm(request.GET)
+    # если форма не валидная, то автоматически создаётся в форме 
+    # ошибки по каждому полю form.errors
+    # и можно этим воспользоваться
+    if form.is_valid():
+        search = form.cleaned_data['search']
+        context['vaccine_list'] = Vaccine.objects.all().filter(name__icontains=search)
+        context['searchForm'] = form
+    else:
+        context['errors'] = form.errors
+
+    person_list = Person.objects.filter(user__email__icontains='temaez')
+    context['person_list'] = person_list
+    person = PersonForm(initial={'name': 'Artem', 'dateofbirth': '1970-01-01', 'sex': 'M'})
+    context['personForm'] = person
+    return render(request, 'index.html', context) 
