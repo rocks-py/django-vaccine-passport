@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from vaccineapp.models import Vaccine, Person, User
+from vaccineapp.models import Vaccine, Person, User, Collection
 from vaccineapp.forms import SearchForm, PersonForm
 from django.urls import reverse
 # Create your views here.
@@ -47,21 +47,14 @@ def index(request):
 
 def collection_list(request):
     context = {}
+    # form = SearchForm(request.GET)
+    # if form.is_valid():
+    #     search = form.cleaned_data['search']
+    #     context['collection_list'] = Vaccine.objects.all().filter(name__icontains=search)
+    #     context['searchForm'] = form
+    # else:
+    #     context['errors'] = form.errors
 
-    # search = request.GET.get('search', '')
-    form = SearchForm(request.GET)
-    # если форма не валидная, то автоматически создаётся в форме 
-    # ошибки по каждому полю form.errors
-    # и можно этим воспользоваться
-    if form.is_valid():
-        search = form.cleaned_data['search']
-        context['vaccine_list'] = Vaccine.objects.all().filter(name__icontains=search)
-        context['searchForm'] = form
-    else:
-        context['errors'] = form.errors
-
-    person_list = Person.objects.filter(user__email__icontains='temaez')
-    context['person_list'] = person_list
-    person = PersonForm(initial={'name': 'Artem', 'dateofbirth': '1970-01-01', 'sex': 'M'})
-    context['personForm'] = person
-    return render(request, 'index.html', context) 
+    collection_list = Collection.objects.all()
+    context['collection_list'] = collection_list
+    return render(request, 'collection_list.html', context) 
