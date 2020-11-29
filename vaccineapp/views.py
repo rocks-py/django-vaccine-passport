@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from vaccineapp.models import Vaccine, Person, User, Collection
 from vaccineapp.forms import SearchForm, PersonForm
 from django.urls import reverse
+from django.views.generic import ListView
 # Create your views here.
 
 def index(request):
@@ -58,3 +59,6 @@ def collection_list(request):
     collection_list = Collection.objects.all()
     context['collection_list'] = collection_list
     return render(request, 'collection_list.html', context) 
+
+class CollectionList(ListView):
+    model = Collection
