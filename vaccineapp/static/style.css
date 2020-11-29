@@ -1,87 +1,96 @@
 /* dashboard */
 body {
-    min-height: 75rem;
-    padding-top: 7rem;
+  min-height: 75rem;
+  padding-top: 7rem;
 }
 
 .bd-placeholder-img {
-    font-size: 1.125rem;
-    text-anchor: middle;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+  font-size: 1.125rem;
+  text-anchor: middle;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 @media (min-width: 768px) {
-    .bd-placeholder-img-lg {
-        font-size: 3.5rem;
-    }
+  .bd-placeholder-img-lg {
+    font-size: 3.5rem;
+  }
 }
 
 a {
-    color: white;
-    font-size: 30px;
+  color: white;
+  font-size: 30px;
 }
 
 /* our styles */
 .hide {
-    display: none;
+  display: none;
 }
 
 .jumbotron {
-    padding: 2rem;
+  padding: 2rem;
 }
 
 .avatar {
-    /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
-    background-image: url('img/avatar_male.png');
+  /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
+  background-image: url("img/avatar_male.png");
 
-    /* make a square container */
-    width: 100px;
-    height: 100px;
+  /* make a square container */
+  width: 100px;
+  height: 100px;
 
-    /* fill the container, preserving aspect ratio, and cropping to fit */
-    background-size: cover;
+  /* fill the container, preserving aspect ratio, and cropping to fit */
+  background-size: cover;
 
-    /* center the image vertically and horizontally */
-    background-position: top center;
+  /* center the image vertically and horizontally */
+  background-position: top center;
 
-    /* round the edges to a circle with border radius 1/2 container size */
-    border-radius: 50%;
-    background-color: white;
+  /* round the edges to a circle with border radius 1/2 container size */
+  border-radius: 50%;
+  background-color: white;
 }
 
 .container-fluid {
-/* background-color: greenyellow; */
+  /* background-color: greenyellow; */
 }
 
 .white-label {
-    color: white;
+  color: white;
 }
 
 .vaccine-card {
-    background-color: #C4C4C4;
-    border-radius: 25px;
+  background-color: #c4c4c4;
+  border-radius: 25px;
 }
 
 .progress-span {
-    position: absolute;
-    right: -20px;
-    font-size: 20px; 
-    font-weight: bold; 
-    color: white;
+  position: absolute;
+  right: -20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
 }
 
 .add-btn {
-    border: 4px dashed #2D9CDB;
-    color: #2D9CDB;
-    font-weight: bold;
-    font-size: 20px;
-    padding: 20px 180px;
-    text-transform: uppercase;
+  border: 4px dashed #2d9cdb;
+  color: #2d9cdb;
+  font-weight: bold;
+  font-size: 20px;
+  padding: 20px 180px;
+  text-transform: uppercase;
 }
 
 .add-btn:hover {
-    border-color: black;
+  border-color: black;
+}
+
+/* Collections */
+
+.collection__article {
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 15px;
+  box-shadow: 5px 5px black;
 }

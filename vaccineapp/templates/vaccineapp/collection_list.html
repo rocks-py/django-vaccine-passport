@@ -1,18 +1,26 @@
-{% extends 'base.html'%}
-{% load static %}
-
-
+{% extends 'base.html'%} 
+{% load static %} 
 {%block content%}
-  <ul>
+<div class="row">
   {%for collection in collection_list%}
-  <li>
-    {{collection.name}}
-    <ul>
-      {%for vaccine in collection.vaccines.all %}
-      <li>{{vaccine.name}}</li>
+  <div class="col-lg-4 col-md-6 col-sm-12">
+    <div class="article collection__article">
+      <div class="row">
+        <div class="col-md-12"><h2>{{collection.name}}</h2></div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <ul>
+            {%for vaccine in collection.vaccines.all %}
+            <li>{{vaccine.name}}</li>
+            {%endfor%}
+          </ul>
+        </div>
+        <div></div>
+      </div>
       {%endfor%}
-    </ul>
-  </li>
-  {%endfor%}
- <ul>
-{%endblock%}
+      <div>{%endblock%}</div>
+    </div>
+  </div>
+</div>
