@@ -4,9 +4,12 @@ from vaccineapp.models import Vaccine, Person, User, Collection
 from vaccineapp.forms import SearchForm, PersonForm
 from django.urls import reverse
 from django.views.generic import ListView
+from django.http import JsonResponse
 # Create your views here.
 
 def index(request):
+    # # if not request.user:
+    # #     HttpResponseRedirect(reverse('promo'))
     context = {}
      # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -45,6 +48,23 @@ def index(request):
     # return HttpResponse("Hello, world. !!! Artemka")
     return render(request, 'index.html', context) 
 
+def collection_json(request):  
+    if request.GET:
+        form = SearchForm(request.GET)
+    else:
+        form = SearchForm()
+    # если форма не валидная, то автоматически создаётся в форме 
+    # ошибки по каждому полю form.errors
+    # и можно этим воспользоваться
+    search = ''
+    if form.is_valid():
+        search = form.cleaned_data['search']
+        queryset = Collection.objects.filter(name__icontains=search)
+    else:
+        queryset = Collection.objects.all()
+
+    collection_list = list(queryset.values('id', 'name'))
+    return JsonResponse(collection_list, safe=False) 
 
 def collection_list(request):
     context = {}
