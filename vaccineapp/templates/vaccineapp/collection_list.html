@@ -1,5 +1,28 @@
 {% extends 'base.html'%} {% load static %} {%block content%}
 <div class="row">
+  <form method="GET" style="margin-bottom: 50px" class="w-100">
+    <div class="row justify-content-center">
+      <div class="w-80" style="margin-right: 20px">
+        <input
+          name="search"
+          type="text"
+          class="form-control"
+          value="{{request.GET.search}}"
+          id="ajax-search"
+        />
+      </div>
+      <div class="w-30">
+        <input type="submit" value="Search" class="btn btn-success" />
+      </div>
+    </div>
+    {%csrf_token%}
+  </form>
+</div>
+<div class="row">
+  <div class="row justify-content-center"><button id="ajax-btn" class="btn btn-primary">Ajax</button></div>
+  <div class="row"><div id="AJAX"></div></div>
+</div>
+<div class="row">
   {%for collection in collection_list%}
   <div class="col-lg-4 col-md-6 col-sm-12">
     <div class="article collection__article">
@@ -21,4 +44,22 @@
   </div>
   {%endfor%}
 </div>
+<script>
+  function ajaxFn() {
+    var q = document.getElementById("ajax-search").value;
+
+    $.get("/api/collection", { search: q }).done(function (data) {
+      var elem = document.getElementById("AJAX");
+      elem.innerHTML = JSON.stringify(data);
+    });
+  }
+
+  {% comment %} var btn = document.getElementById("ajax-btn");
+  btn.addEventListener('click', ajaxFn); {% endcomment %}
+
+  var btn = $('#ajax-btn');
+  btn.click(ajaxFn);
+  var searchField = $("#ajax-search");
+  searchField.on('input', ajaxFn);
+</script>
 {%endblock%}
