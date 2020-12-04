@@ -6,9 +6,15 @@ from vaccineapp.models import Vaccine, Desease, User, Collection, Person
 class VaccineAdmin(admin.ModelAdmin):
     list_display = ('name', 'manufacturer', 'comments')
 
+class VaccineInline(admin.TabularInline):
+    model = Vaccine
+
 @admin.register(Desease)
 class DeseaseAdmin(admin.ModelAdmin):
     list_display = ('name',)
+    inlines = [
+        VaccineInline
+    ]
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
