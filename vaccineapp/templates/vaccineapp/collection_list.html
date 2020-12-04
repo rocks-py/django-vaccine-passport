@@ -18,9 +18,12 @@
     {%csrf_token%}
   </form>
 </div>
-<div class="row">
-  <div class="row justify-content-center"><button id="ajax-btn" class="btn btn-primary">Ajax</button></div>
-  <div class="row"><div id="AJAX"></div></div>
+<div class="row" style="margin: 10px;">
+  <div class="col-12">
+    <div class="row justify-content-center" style="margin: 10px;"><button id="ajax-btn" class="btn btn-primary">Ajax</button></div>
+    <div class="row"><div id="AJAX"></div></div>
+  </div>
+  
 </div>
 <div class="row">
   {%for collection in collection_list%}
