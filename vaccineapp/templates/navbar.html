@@ -15,12 +15,22 @@
         <li class="nav-item {%if request.path_info == '/collections' %}active{%endif%}"">
             <a class="nav-link" href="/collections">Подборки</a>
         </li>
+        
         </ul>
     </div>
-    <div>
-        <div class="avatar"></div>
+    <div class="nav-item dropdown my-2 my-lg-0">
+        <a class="avatar nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/settings"><i class="fa fa-sliders-h"></i>Настройки</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out-alt"></i>Выход</a>
+        </div>
     </div>
-
+    {% comment %} <div>
+        <div class="avatar"></div>
+    </div> {% endcomment %}
+    
     <script>
     </script>
 </nav>
