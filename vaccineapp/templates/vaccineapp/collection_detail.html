@@ -1,0 +1,12 @@
+{% extends 'base.html'%} {% load static %} {%block content%}
+
+{%for disease in collection.diseases.all%}
+  <h2>{{disease.name}}</h2>
+  <br>
+  <ul>
+    {%for vaccine in disease.vaccines.all %}
+    <li>{{vaccine.name}}</li>
+    {%endfor%}
+  </ul>
+{%endfor%}
+{%endblock%}
