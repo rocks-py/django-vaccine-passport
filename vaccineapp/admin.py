@@ -1,27 +1,28 @@
 from django.contrib import admin
-from vaccineapp.models import Vaccine, Desease, User, Collection, Person
+from vaccineapp.models import Vaccine, Disease, User, Collection, Person
 
 # Register your models here.
 @admin.register(Vaccine)
 class VaccineAdmin(admin.ModelAdmin):
     list_display = ('name', 'manufacturer', 'comments')
 
-class VaccineInline(admin.TabularInline):
-    model = Vaccine
 
-@admin.register(Desease)
-class DeseaseAdmin(admin.ModelAdmin):
+@admin.register(Disease)
+class DiseaseAdmin(admin.ModelAdmin):
     list_display = ('name',)
-    inlines = [
-        VaccineInline
-    ]
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('email',)
 
+# class DiseaseInline(admin.TabularInline):
+#     model = Disease
+
 @admin.register(Collection)
 class CollectionAdmin(admin.ModelAdmin):
+    # inlines = [
+    #     DiseaseInline
+    # ]
     pass
 
 @admin.register(Person)
