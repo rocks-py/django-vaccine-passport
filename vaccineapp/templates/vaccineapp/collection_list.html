@@ -29,7 +29,7 @@
   {%for collection in collection_list%}
   <div class="col-lg-4 col-md-6 col-sm-12">
     <div class="article collection__article">
-      <div class="collection__container">
+      <div class="collection__container" onclick="redirect('{{collection.get_absolute_url}}')">
         <div class="row">
           <div class="col-md-12"><h2>{{collection.name}}</h2></div>
         </div>
@@ -49,6 +49,11 @@
   {%endfor%}
 </div>
 <script>
+  function redirect(url) {
+    window.location = url;
+  }
+
+
   function ajaxFn() {
     var q = document.getElementById("ajax-search").value;
 

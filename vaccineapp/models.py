@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -56,6 +57,8 @@ class Collection(models.Model):
         verbose_name = "Коллекция"
         verbose_name_plural = "Коллекции"
 
+    def get_absolute_url(self):
+        return reverse("collection-detail", kwargs={"pk": self.pk})
 
 class Person(models.Model):
     name = models.CharField(max_length=200, verbose_name="имя человека")
