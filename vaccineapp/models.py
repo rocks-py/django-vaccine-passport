@@ -10,20 +10,10 @@ class User(models.Model):
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
-
-class Desease(models.Model):
-    name = models.CharField(max_length=200)
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        verbose_name = "Заболевание"
-        verbose_name_plural = "Заболевания"
         
 class Vaccine(models.Model):
     name = models.CharField(max_length=200, verbose_name="название")
     manufacturer = models.CharField(max_length=200, default=None, blank=True, null=True, verbose_name="производитель")
-    desease = models.ForeignKey(Desease, on_delete=models.CASCADE, default=None, blank=True, null=True, verbose_name="заболевание")
     protection_period = models.DateField(default=None, blank=True, null=True, verbose_name="срок действия")
     administration_schedule = models.TextField(default=None, blank=True, null=True, verbose_name="схема введения")
     age = models.IntegerField(default=None, blank=True, null=True, verbose_name="возраст")
@@ -37,7 +27,6 @@ class Vaccine(models.Model):
     )
     currency_type = models.CharField(max_length=10, choices=CURRENCY_TYPE, default=CURRENCY_TYPE[1], verbose_name="тип валюты")
     comments = models.TextField(default=None, blank=True, null=True, verbose_name="комментарий")
-    is_hidden = models.BooleanField(default=False, blank=True, null=True)
     is_produced = models.BooleanField(default=True, blank=True, null=True)
 
     def __str__(self):
@@ -47,9 +36,19 @@ class Vaccine(models.Model):
         verbose_name = "Вакцина"
         verbose_name_plural = "Вакцины"
 
+class Disease(models.Model):
+    name = models.CharField(max_length=200)
+    vaccines = models.ManyToManyField(Vaccine, verbose_name="вакцины", blank=True, null=True)
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Заболевание"
+        verbose_name_plural = "Заболевания"
+
 class Collection(models.Model):
     name = models.CharField(max_length=200)
-    vaccines = models.ManyToManyField(Vaccine)
+    diseases = models.ManyToManyField(Disease, verbose_name="заболевания", blank=True, null=True)
     def __str__(self):
         return self.name
 
