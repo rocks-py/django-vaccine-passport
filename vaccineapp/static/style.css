@@ -89,9 +89,40 @@ a {
 /* Collections */
 
 .collection__article {
+  position: relative;
+}
+
+.collection__article:hover {
+  cursor: pointer;
+}
+
+.collection__article:active {
+}
+
+.collection__container {
+  width: 100%;
+  position: absolute; 
+  
   border: 2px solid black;
   padding: 10px;
   border-radius: 15px;
-  box-shadow: 5px 5px black;
+  box-shadow: 5px 5px #000000;
   margin-bottom: 20px;
+}
+
+.collection__container:active {
+  top: 10px;
+  left: 10px;
+  box-shadow: none;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+
+.collection__container::after {
+  clear: both;
 }

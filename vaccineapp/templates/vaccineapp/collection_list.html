@@ -29,19 +29,20 @@
   {%for collection in collection_list%}
   <div class="col-lg-4 col-md-6 col-sm-12">
     <div class="article collection__article">
-      <div class="row">
-        <div class="col-md-12"><h2>{{collection.name}}</h2></div>
-      </div>
-      <hr />
-      <div class="row">
-        <div class="col-md-12">
-          <ul>
-            {%for vaccine in collection.vaccines.all %}
-            <li>{{vaccine.name}}</li>
-            {%endfor%}
-          </ul>
+      <div class="collection__container">
+        <div class="row">
+          <div class="col-md-12"><h2>{{collection.name}}</h2></div>
         </div>
-        <div></div>
+        <hr />
+        <div class="row">
+          <div class="col-md-12">
+            <ul>
+              {%for disease in collection.diseases.all %}
+              <li>{{disease.name}}</li>
+              {%endfor%}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
