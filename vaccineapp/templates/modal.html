@@ -26,19 +26,23 @@
   </div>
 </div>
 <script>
-      function openDialog(title, disease_id, date_expire) {
+      
+
+      $('.vaccine__item').on('click', function (event) {
+        var title = this.getAttribute('disease-name');
+        var disease_id = this.getAttribute('vaccine-id');
+
         titleElem = $('#exampleModalLabel');
         titleElem.text(title);
 
-      $.get("/api/disease/" + disease_id).done(function (data) {
-        var $select = $("#vaccine-select");
-        console.log(data);
-        $select.empty();
-        $select.append($("<option />").text("Выберите вакцину"));
-        $.each(data, function() {
-            $select.append($("<option />").val(this.vaccines).text(this.vaccines__name));
-        });
-      });
-  
-      }
+        $.get("/api/disease/" + disease_id).done(function (data) {
+          var $select = $("#vaccine-select");
+          console.log(data);
+          $select.empty();
+          $select.append($("<option />").text("Выберите вакцину"));
+          $.each(data, function() {
+              $select.append($("<option />").val(this.vaccines).text(this.vaccines__name));
+          });
+        }); 
+      })
 </script>
