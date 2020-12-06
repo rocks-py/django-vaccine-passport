@@ -1,5 +1,5 @@
 from django.contrib import admin
-from vaccineapp.models import Vaccine, Disease, User, Collection, Person
+from vaccineapp.models import Vaccine, Disease, User, Collection, Person, PersonVaccine
 
 # Register your models here.
 @admin.register(Vaccine)
@@ -28,3 +28,7 @@ class CollectionAdmin(admin.ModelAdmin):
 @admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     list_display = ('name','dateofbirth', 'sex')
+
+@admin.register(PersonVaccine)
+class PersonVaccineAdmin(admin.ModelAdmin):
+    list_display = ('disease','vaccine',)
