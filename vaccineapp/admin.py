@@ -31,4 +31,4 @@ class PersonAdmin(admin.ModelAdmin):
 
 @admin.register(PersonVaccine)
 class PersonVaccineAdmin(admin.ModelAdmin):
-    list_display = ('disease','vaccine',)
+    list_display = ('person','disease','vaccine',)

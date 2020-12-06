@@ -60,15 +60,6 @@ class Collection(models.Model):
     def get_absolute_url(self):
         return reverse("collection-detail", kwargs={"pk": self.pk})
 
-class PersonVaccine(models.Model):
-    disease = models.ForeignKey(Disease, on_delete=models.CASCADE, null=True, verbose_name="заболевание")
-    vaccine = models.ForeignKey(Vaccine, on_delete=models.CASCADE, null=True, verbose_name="вакцина")
-    date_expire = models.DateField(null=True, verbose_name="Срок действия (до)")
-    
-    class Meta:
-        verbose_name = "Вакцины человека"
-        verbose_name_plural = "Вакцины человека"
-
 class Person(models.Model):
     name = models.CharField(max_length=200, verbose_name="имя человека")
     # age = models.IntegerField(verbose_name="возраст")
@@ -79,13 +70,23 @@ class Person(models.Model):
     )
     sex = models.CharField(max_length=1, choices=SEX, verbose_name="пол")
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="пользователь")
-    person_vaccines = models.ManyToManyField(PersonVaccine, verbose_name="вакцины человека")
     def __str__(self):
         return self.name
 
     class Meta:
         verbose_name = "Персона"
         verbose_name_plural = "Персоны"
+
+
+class PersonVaccine(models.Model):
+    person = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, verbose_name="человек")
+    disease = models.ForeignKey(Disease, on_delete=models.CASCADE, null=True, verbose_name="заболевание")
+    vaccine = models.ForeignKey(Vaccine, on_delete=models.CASCADE, null=True, verbose_name="вакцина")
+    date_expire = models.DateField(null=True, verbose_name="Срок действия (до)")
+    
+    class Meta:
+        verbose_name = "Вакцины человека"
+        verbose_name_plural = "Вакцины человека"
 
 # TODO: можно заменить через ManyToManyField
 class UserPerson(models.Model):
