@@ -21,7 +21,7 @@
             <div class="vaccine-card bg-white" style="height:160px; margin: 20px 0px; padding: 20px;">
               
               {% for vaccine in person.vaccines.all %}
-              <div class="row">
+              <div class="row vaccine__item" data-toggle="modal" data-target="#exampleModal">
                 <div class="col-sm-2">
                   <img src="{% static 'img/check_icon.png' %}" width="20">
                 </div>
@@ -121,5 +121,5 @@
 
     </script>
 
-
+  {%include 'modal.html'%}
 {%endblock%}

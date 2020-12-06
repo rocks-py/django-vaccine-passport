@@ -1,4 +1,4 @@
-/* dashboard */
+/* index.html */
 body {
   min-height: 75rem;
   padding-top: 7rem;
@@ -101,7 +101,34 @@ nav .menu {
   border-color: black;
 }
 
-/* Collections */
+.vaccine__item:hover {
+  cursor: pointer;
+  background-color: lightgrey;
+}
+
+.vaccine__item {
+  border-radius: 15px;
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+     -moz-user-select: none; /* Old versions of Firefox */
+      -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none; /* Non-prefixed version, currently
+                                supported by Chrome, Edge, Opera and Firefox */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* collection_list.html */
 
 .collection__article {
   position: relative;
@@ -143,7 +170,9 @@ nav .menu {
 }
 
 
-/* navbar */
+/* navbar.html */
 .dropdown-item i {
   margin-right: 10px;
 }
+
+
