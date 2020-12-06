@@ -20,15 +20,18 @@
             </div>
             <div class="vaccine-card bg-white" style="height:160px; margin: 20px 0px; padding: 20px;">
               
-              {% for vaccine in person.vaccines.all %}
+              {% for vaccine_data in person.vaccine_data.all %}
               <div class="row vaccine__item" data-toggle="modal" data-target="#exampleModal">
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                   <img src="{% static 'img/check_icon.png' %}" width="20">
                 </div>
-                <div class="col-sm-6">
-                  <span style="font-size:20px;">{{vaccine.name}}</span>  
+                <div class="col-sm-3">
+                  <span style="font-size:20px;">{{vaccine_data.disease.name}}</span>  
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-6">
+                  <span style="font-size:20px;">{{vaccine_data.vaccine.name}}</span>  
+                </div>
+                <div class="col-sm-2">
                   <span style="font-size:20px;">до 01/2021</span>
                 </div>
               </div>
