@@ -68,7 +68,7 @@ class Person(models.Model):
         ('M', 'MALE'),
         ('F', 'FEMALE')
     )
-    sex = models.CharField(max_length=1, choices=SEX, verbose_name="пол")
+    sex = models.CharField(max_length=1, choices=SEX, verbose_name="пол", default='M')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="пользователь")
     def __str__(self):
         return self.name
