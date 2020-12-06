@@ -21,7 +21,7 @@
             <div class="vaccine-card bg-white" style="height:160px; margin: 20px 0px; padding: 20px;">
               
               {% for vaccine_data in person.vaccine_data.all %}
-              <div class="row vaccine__item" data-toggle="modal" data-target="#exampleModal">
+              <div class="row vaccine__item" data-toggle="modal" data-target="#exampleModal" onclick="openDialog('{{vaccine_data.disease.name}}');">
                 <div class="col-sm-1">
                   <img src="{% static 'img/check_icon.png' %}" width="20">
                 </div>
@@ -110,7 +110,6 @@
 
         personForm.classList.remove('hide');
       }, false);
-
     </script>
 
   {%include 'modal.html'%}

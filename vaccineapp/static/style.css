@@ -103,7 +103,7 @@ nav .menu {
 
 .vaccine__item:hover {
   cursor: pointer;
-  background-color: lightgrey;
+  background-color: lightblue;
 }
 
 .vaccine__item {
