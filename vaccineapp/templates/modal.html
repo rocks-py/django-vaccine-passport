@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <select class="custom-select custom-select-lg mb-3 vaccine__select">
+        <select class="custom-select custom-select-lg mb-3 " id="vaccine-select">
           <option selected>Выберите вакцину</option>
           <option value="1">One</option>
           <option value="2">Two</option>
@@ -26,10 +26,19 @@
   </div>
 </div>
 <script>
-      function openDialog(title, vaccine_id, date_expire) {
+      function openDialog(title, disease_id, date_expire) {
         titleElem = $('#exampleModalLabel');
         titleElem.text(title);
 
-        $
+      $.get("/api/disease/" + disease_id).done(function (data) {
+        var $select = $("#vaccine-select");
+        console.log(data);
+        $select.empty();
+        $select.append($("<option />").text("Выберите вакцину"));
+        $.each(data, function() {
+            $select.append($("<option />").val(this.vaccines).text(this.vaccines__name));
+        });
+      });
+  
       }
 </script>
