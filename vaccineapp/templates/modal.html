@@ -40,11 +40,16 @@
 
       $('.vaccine__item').on('click', function (event) {
         title = this.getAttribute('disease-name');
-        disease_id = this.getAttribute('vaccine-id');
+        disease_id = this.getAttribute('disease-id');
+        vaccine_id = this.getAttribute('vaccine-id');
         person_vaccine_id = this.getAttribute('person-vaccine-id');
+        date = this.getAttribute('person-vaccine-date');
 
-        titleElem = $('#exampleModalLabel');
-        titleElem.text(title);
+        $title = $('#exampleModalLabel');
+        $title.text(title);
+
+        $date = $('#vaccine-date');
+        $date.val(date);
 
         $.get("/api/disease/" + disease_id).done(function (data) {
           var $select = $("#vaccine-select");
@@ -54,6 +59,7 @@
           $.each(data, function() {
               $select.append($("<option />").val(this.vaccines).text(this.vaccines__name));
           });
+          $select.val(vaccine_id);
         }); 
       })
 </script>
