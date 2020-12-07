@@ -33,7 +33,7 @@
                   <span style="font-size:20px;">{{vaccine_data.vaccine.name}}</span>  
                 </div>
                 <div class="col-sm-2">
-                  <span style="font-size:20px;">до 01/2021</span>
+                  <span style="font-size:20px;">до {{vaccine_data.get_date_expire | date:"m/Y" }}</span>
                 </div>
               </div>
               {% endfor %}

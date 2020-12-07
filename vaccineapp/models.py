@@ -82,11 +82,17 @@ class PersonVaccine(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, verbose_name="человек")
     disease = models.ForeignKey(Disease, on_delete=models.CASCADE, null=True, verbose_name="заболевание")
     vaccine = models.ForeignKey(Vaccine, on_delete=models.CASCADE, null=True, verbose_name="вакцина")
-    date_expire = models.DateField(null=True, verbose_name="Срок действия (до)")
+    vaccination_date = models.DateField(null=True, verbose_name="Дата вакцинации")
     
     class Meta:
         verbose_name = "Вакцины человека"
         verbose_name_plural = "Вакцины человека"
+
+    def get_date_expire(self):
+        from dateutil.relativedelta import relativedelta
+        protection_period = self.vaccine.protection_period
+        return self.vaccination_date + relativedelta(months=protection_period)
+
 
 # TODO: можно заменить через ManyToManyField
 class UserPerson(models.Model):
