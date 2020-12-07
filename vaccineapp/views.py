@@ -90,5 +90,11 @@ def disease_json(request, *args, **kwargs):
 
 def post_person_vaccine(request, *args, **kwargs): 
     person_vaccine_pk = kwargs.get('pk')
-    print(request.POST.get('date'))
-    return JsonResponse(request.POST, safe=False) 
+    vaccination_date = request.POST.get('vaccination_date')
+    vaccine_id = request.POST.get('vaccine_id')
+
+    obj = PersonVaccine.objects.filter(pk=person_vaccine_pk).first()
+    obj.vaccine = Vaccine.objects.filter(pk=vaccine_id).first()
+    obj.vaccination_date = vaccination_date
+    obj.save()
+    return JsonResponse([obj.vaccine.name, obj.vaccination_date], safe=False) 

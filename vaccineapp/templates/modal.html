@@ -20,7 +20,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Удалить</button>
-        <button type="button" class="btn btn-primary" id="save-person-vaccine">Сохранить изменения</button>
+        <button type="button" class="btn btn-primary" id="save-person-vaccine" data-dismiss="modal">Сохранить изменения</button>
       </div>
     </div>
   </div>
@@ -32,9 +32,11 @@
         var dateVal = $('#vaccine-date').val();
 
         $.post('api/person-vaccine/' + person_vaccine_id + '/', {
-          selectVal,
-          dateVal,
+          vaccine_id: selectVal,
+          vaccination_date: dateVal,
           csrfmiddlewaretoken: '{{ csrf_token }}'
+        }, function() {
+          window.location = '/';
         });
       });
 
