@@ -87,3 +87,8 @@ def disease_json(request, *args, **kwargs):
 
     disease_list = list(queryset.values('id', 'name', 'vaccines', 'vaccines__name'))
     return JsonResponse(disease_list, safe=False) 
+
+def post_person_vaccine(request, *args, **kwargs): 
+    person_vaccine_pk = kwargs.get('pk')
+    print(request.POST.get('date'))
+    return JsonResponse(request.POST, safe=False) 

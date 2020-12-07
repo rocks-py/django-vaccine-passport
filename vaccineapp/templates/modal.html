@@ -9,7 +9,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <select class="custom-select custom-select-lg mb-3 " id="vaccine-select">
+        <select class="custom-select custom-select-lg mb-3" id="vaccine-select">
           <option selected>Выберите вакцину</option>
           <option value="1">One</option>
           <option value="2">Two</option>
@@ -20,17 +20,28 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-dismiss="modal">Удалить</button>
-        <button type="button" class="btn btn-primary">Сохранить изменения</button>
+        <button type="button" class="btn btn-primary" id="save-person-vaccine">Сохранить изменения</button>
       </div>
     </div>
   </div>
 </div>
 <script>
-      
+      var title, disease_id, person_vaccine_id;
+      $('#save-person-vaccine').on('click', function() {
+        var selectVal = $("#vaccine-select").val();
+        var dateVal = $('#vaccine-date').val();
+
+        $.post('api/person-vaccine/' + person_vaccine_id + '/', {
+          selectVal,
+          dateVal,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        });
+      });
 
       $('.vaccine__item').on('click', function (event) {
-        var title = this.getAttribute('disease-name');
-        var disease_id = this.getAttribute('vaccine-id');
+        title = this.getAttribute('disease-name');
+        disease_id = this.getAttribute('vaccine-id');
+        person_vaccine_id = this.getAttribute('person-vaccine-id');
 
         titleElem = $('#exampleModalLabel');
         titleElem.text(title);
