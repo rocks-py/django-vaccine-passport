@@ -15,7 +15,7 @@ class User(models.Model):
 class Vaccine(models.Model):
     name = models.CharField(max_length=200, verbose_name="название")
     manufacturer = models.CharField(max_length=200, default=None, blank=True, null=True, verbose_name="производитель")
-    protection_period = models.DateField(default=None, blank=True, null=True, verbose_name="срок действия")
+    protection_period = models.IntegerField(default=None, blank=True, null=True, verbose_name="срок действия (мес)")
     administration_schedule = models.TextField(default=None, blank=True, null=True, verbose_name="схема введения")
     age = models.IntegerField(default=None, blank=True, null=True, verbose_name="возраст")
     efficiency_percent = models.IntegerField(default=None, blank=True, null=True, verbose_name="эффективность")
