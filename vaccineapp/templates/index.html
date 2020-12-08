@@ -7,7 +7,10 @@
     <div class="jumbotron vaccine-card my-round">
       <div class="row">
         <div class="col-sm-2">
-          <div class="avatar {% if person.sex == 'M' %} avatar-male {% else %} avatar-female {% endif %}"></div>
+          <div class="avatar {% if person.sex == 'M' %} avatar-male {% else %} avatar-female {% endif %}" style="position: relative;">
+            <i class="fa fa-shield-virus" style="font-size:60px; color: rgba(40,167,69, 100%); position: absolute; bottom: -50px; left: 20px;"></i>
+          </div>
+          
         </div>
         <div class="col-sm-10">
           <div class="container-fluid">
