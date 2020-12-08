@@ -2,6 +2,8 @@
 body {
   min-height: 75rem;
   padding-top: 7rem;
+  font-family: 'JetBrains Mono', monospace;
+  /* font-family: 'Open Sans', sans-serif; */
 }
 
 .bd-placeholder-img {
