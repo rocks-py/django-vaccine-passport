@@ -5,12 +5,19 @@
   <div disease-id="{{disease.pk}}" class="collection_disease_item">
     <h4>{{disease.name}}</h4>
     <hr />
+    <div class="row">
+      <div class="col-5 ml-5">Название</div>
+      <div class="col-6">Срок действия (мес)</div>
+    </div>
     {%for vaccine in disease.vaccines.all %}
-    <div class="form-check ml-5">
-      <input class="form-check-input vaccine-radiocbx" type="radio" name="vaccine-disease-{{disease.pk}}" id="vaccine-{{vaccine.pk}}" vaccine-id="{{vaccine.pk}}" checked>
-      <label class="form-check-label" for="vaccine-{{vaccine.pk}}">
-        {{vaccine.name}}
-      </label>
+    <div class="row">
+      <div class="form-check ml-5 col-5">
+        <input class="form-check-input vaccine-radiocbx" type="radio" name="vaccine-disease-{{disease.pk}}" id="vaccine-{{vaccine.pk}}" vaccine-id="{{vaccine.pk}}" checked>
+        <label class="form-check-label" for="vaccine-{{vaccine.pk}}">
+          {{vaccine.name}}
+        </label>
+      </div>
+      <div class="col-6">{{vaccine.protection_period}}</div>
     </div>
     {%endfor%}
   </div>
