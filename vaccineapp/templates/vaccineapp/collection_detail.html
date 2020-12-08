@@ -2,16 +2,18 @@
 <a href="/collections" class="btn btn-success">&lt; Назад</a>
 <h2 class="text-center">{{collection.name}}</h2>
 {%for disease in collection.diseases.all%}
-  <h4>{{disease.name}}</h4>
-  <hr />
-  {%for vaccine in disease.vaccines.all %}
-  <div class="form-check ml-5">
-    <input class="form-check-input" type="radio" name="vaccine-disease-{{disease.pk}}" id="vaccine-{{vaccine.pk}}" value="{{vaccine.pk}}" checked>
-    <label class="form-check-label" for="vaccine-{{vaccine.pk}}">
-      {{vaccine.name}}
-    </label>
+  <div disease-id="{{disease.pk}}" class="collection_disease_item">
+    <h4>{{disease.name}}</h4>
+    <hr />
+    {%for vaccine in disease.vaccines.all %}
+    <div class="form-check ml-5">
+      <input class="form-check-input vaccine-radiocbx" type="radio" name="vaccine-disease-{{disease.pk}}" id="vaccine-{{vaccine.pk}}" vaccine-id="{{vaccine.pk}}" checked>
+      <label class="form-check-label" for="vaccine-{{vaccine.pk}}">
+        {{vaccine.name}}
+      </label>
+    </div>
+    {%endfor%}
   </div>
-  {%endfor%}
 {%endfor%}
 
 <div class="collection__breakline"></div>
@@ -19,7 +21,7 @@
 <h4>Участники:</h4>
 {%for person in persons.all%}
 <div class="form-check ml-5">
-  <input class="form-check-input" type="checkbox" value="" id="cbx-{{person.pk}}">
+  <input class="form-check-input person-cbx" type="checkbox" value="" id="cbx-{{person.pk}}" person-id={{person.pk}}>
   <label class="form-check-label" for="cbx-{{person.pk}}">
     {{person.name}}
   </label>
@@ -27,4 +29,53 @@
 {%endfor%}
 
 <button type="button" class="btn btn-primary сollection_detail__save" id="save-person-vaccine">Добавить вакцины</button>
+
+<script>
+  $('#save-person-vaccine').on('click', function() {
+    var data = [];
+    var persons = [];
+    var disease_vaccine = {};
+
+    // получаем id людей
+    var $personCbxes = $(".person-cbx:checked");
+    $.each( $personCbxes, function( key, value ) {
+      var elem = value;
+      var person_id = elem.getAttribute('person-id');
+      persons.push(person_id);
+    });
+
+    // получаем id заболеваний и вакцин
+    var $diseaseDivs = $(".collection_disease_item");
+    $.each( $diseaseDivs, function( key, value ) {
+      var elem = value;
+      var disease_id = elem.getAttribute("disease-id");
+      var vaccineElem = $(elem).find(".vaccine-radiocbx:checked")[0];
+      var vaccine_id = vaccineElem.getAttribute('vaccine-id');
+      
+      data.push({
+        vaccine_id: vaccine_id,
+        disease_id: disease_id
+      });
+    });
+    var d = {
+      persons: persons,
+      data: data
+    };
+    {% comment %} alert(JSON.stringify(d, null, 4)); {% endcomment %}
+
+    $.ajax({
+      type: "POST",
+      url: '/api/person-vaccine/', 
+      dataType: 'json',
+      contentType:"application/json; charset=utf-8",
+      data: JSON.stringify(d), 
+      success: function() {
+        {% comment %} window.location = '/collections'; {% endcomment %}
+      },
+      beforeSend: function(xhr) {
+          xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+      },
+    });
+  });
+</script>
 {%endblock%}

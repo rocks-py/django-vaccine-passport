@@ -94,7 +94,7 @@ def disease_json(request, *args, **kwargs):
     disease_list = list(queryset.values('id', 'name', 'vaccines', 'vaccines__name'))
     return JsonResponse(disease_list, safe=False) 
 
-def post_person_vaccine(request, *args, **kwargs): 
+def person_vaccine_item(request, *args, **kwargs): 
     person_vaccine_pk = kwargs.get('pk')
     if request.method == 'POST':
         vaccination_date = request.POST.get('vaccination_date')
@@ -104,8 +104,36 @@ def post_person_vaccine(request, *args, **kwargs):
         obj.vaccine = Vaccine.objects.filter(pk=vaccine_id).first()
         obj.vaccination_date = vaccination_date
         obj.save()
-        return JsonResponse([obj.vaccine.name, obj.vaccination_date], safe=False) 
+        vac_list = [obj.vaccine.name, obj.vaccination_date]
+        print(vac_list)
+        return JsonResponse(vac_list, safe=False) 
     elif request.method == 'DELETE':
         obj = PersonVaccine.objects.filter(pk=person_vaccine_pk).first()
         obj.delete()
         return JsonResponse({'result': True }, safe=False) 
+
+import json
+
+def post_person_vaccine(request, *args, **kwargs):
+    # persons = request.POST.get('persons')
+    # data = request.POST.get('data')
+    # print(request.POST)
+    print(request.body)
+    reqJson = json.loads(request.body)
+    persons = reqJson['persons']
+    data = reqJson['data']
+    result_list = []
+    for person_id in persons:
+        for item in data:
+            disease_id = item["disease_id"]
+            vaccine_id = item["vaccine_id"]
+            vaccine = Vaccine.objects.filter(pk=vaccine_id).first()
+            obj_list = PersonVaccine.objects.filter(person__pk=person_id,disease__pk=disease_id)
+            if not obj_list.exists():
+                disease = Disease.objects.filter(pk=disease_id).first()
+                person = Person.objects.filter(pk=person_id).first()
+                obj = PersonVaccine(vaccine=vaccine, disease=disease, person=person)
+                obj.save()
+                result_list.append(obj)
+    print(result_list)
+    return JsonResponse(str(result_list), safe=False)

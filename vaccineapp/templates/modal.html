@@ -31,11 +31,15 @@
         var selectVal = $("#vaccine-select").val();
         var dateVal = $('#vaccine-date').val();
 
-        $.post('api/person-vaccine/' + person_vaccine_id + '/', {
+        var data = {
           vaccine_id: selectVal,
           vaccination_date: dateVal,
           csrfmiddlewaretoken: '{{ csrf_token }}'
-        }, function() {
+        };
+
+        alert(JSON.stringify(data, null, 4));
+
+        $.post('api/person-vaccine/' + person_vaccine_id + '/', data, function() {
           window.location = '/';
         });
       });
