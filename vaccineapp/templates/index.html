@@ -7,11 +7,12 @@
     <div class="jumbotron vaccine-card">
       <div class="row">
         <div class="col-sm-2">
-          <div class="avatar"></div>
+          <div class="avatar {% if person.sex == 'M' %} avatar-male {% else %} avatar-female {% endif %}"></div>
         </div>
         <div class="col-sm-10">
           <div class="container-fluid">
-            <h4 class="white-label">{{person.name}}</h4> <b>Уровень защищенности 7 / 9</b></h4>
+            <h4 class="white-label">{{person.name}}</h4> 
+            <b style="margin-bottom: 10px; display: block;">Уровень защищенности 7 / 9</b>
             <div class="progress">
               <div class="progress-bar bg-success" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="90">
                 <!-- <span class="progress-span">7 / 9</span> -->
@@ -35,40 +36,16 @@
                 <div class="col-sm-3">
                   <span>{{vaccine_data.disease.name}}</span>  
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
                   <span>{{vaccine_data.vaccine.name}}</span>  
                 </div>
                 {%if vaccine_data.vaccination_date %}
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                   <span>до {{vaccine_data.get_date_expire | date:"m/Y" }}</span>
                 </div>
                 {%endif%}
               </div>
               {% endfor %}
-
-            
-              <!-- <div class="row">
-                <div class="col-sm-2">
-                  <img src="img/check_icon.png" width="20">
-                </div>
-                <div class="col-sm-6">
-                  <span style="font-size:20px;">коклюш</span>  
-                </div>
-                <div class="col-sm-4">
-                  <span style="font-size:20px;">до 08/2024</span>
-                </div>
-              </div> -->
-
-              <!-- <div class="row">
-                <div class="col-sm-2">
-                </div>
-                <div class="col-sm-6">
-                  <span style="font-size:20px; color:gray;">дифтерия</span>  
-                </div>
-                <div class="col-sm-4">
-                  <span style="font-size:20px; color:gray;">не привит</span>
-                </div>
-              </div> -->
             </div>
           </div>
         </div>
@@ -80,7 +57,7 @@
 
 
     <form method="POST">
-      <div class="jumbotron vaccine-card" id="new_person_form">
+      <div class="jumbotron vaccine-card" id="new-person-form">
         {% comment %} <div>
           <ul>
           {% for error in errors%}
@@ -90,10 +67,12 @@
         </div> {% endcomment %}
         <div class="row">
           <div class="col-sm-2">
-            <div class="avatar"></div>
+            <div class="avatar avatar-male"></div>
           </div>
           <div class="col-sm-10">
-            {{personForm}}
+            <div style="padding-left: 20px;">
+              {{personForm}}
+            </div>
           </div>
         </div>
         <div class="text-center">
@@ -110,7 +89,7 @@
     </div>
     <script>
       var btn = document.querySelector("#add_person_btn");
-      var personForm = document.querySelector("#new_person_form");
+      var personForm = document.querySelector("#new-person-form");
       btn.addEventListener('click', function (event) {
         // Don't follow the link
         event.preventDefault();
@@ -119,6 +98,19 @@
 
         personForm.classList.remove('hide');
       }, false);
+
+      $( "#id_sex" ).change(function(event) {
+        switch (this.value) {
+          case 'M':
+            var avatars = $('#new-person-form .avatar-female');
+            avatars.removeClass( "avatar-female" ).addClass( "avatar-male" );
+            break;
+          case 'F':
+            var avatars = $('#new-person-form .avatar-male');
+            avatars.removeClass( "avatar-male" ).addClass( "avatar-female" );
+            break;
+        }
+      });
     </script>
 
   {%include 'modal.html'%}

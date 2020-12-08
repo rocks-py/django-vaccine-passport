@@ -30,6 +30,10 @@ a {
   color: #28a745;
 }
 
+#new-person-form label {
+  margin-top:10px;
+}
+
 /* our styles */
 .hide {
   display: none;
@@ -40,8 +44,6 @@ a {
 }
 
 .avatar {
-  /* This image is 687 wide by 1024 tall, similar to your aspect ratio */
-  background-image: url("img/avatar_male.png");
 
   /* make a square container */
   width: 100px;
@@ -56,6 +58,14 @@ a {
   /* round the edges to a circle with border radius 1/2 container size */
   border-radius: 50%;
   background-color: white;
+}
+
+.avatar-male {
+  background-image: url("img/avatar_male.png");
+}
+
+.avatar-female {
+  background-image: url("img/avatar_female.png");
 }
 
 nav .avatar {
@@ -185,6 +195,13 @@ nav .menu {
 .dropdown-item i {
   margin-right: 10px;
 }
+
+#nav-user a:hover {
+  color: gray;
+}
+
+
+
 
 
 /* collection_detail.html */
