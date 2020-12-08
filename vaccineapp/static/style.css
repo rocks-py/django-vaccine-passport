@@ -24,6 +24,10 @@ a {
   font-size: 30px;
 }
 
+.fa-check-circle {
+  color: #28a745;
+}
+
 /* our styles */
 .hide {
   display: none;
