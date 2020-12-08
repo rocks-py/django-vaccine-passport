@@ -78,7 +78,7 @@
       contentType:"application/json; charset=utf-8",
       data: JSON.stringify(d), 
       success: function() {
-        {% comment %} window.location = '/collections'; {% endcomment %}
+        window.location = '/collections';
       },
       beforeSend: function(xhr) {
           xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
