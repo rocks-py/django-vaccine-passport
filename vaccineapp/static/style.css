@@ -93,7 +93,25 @@ nav .menu {
 
 .vaccine-card {
   background-color: #c4c4c4;
+}
+
+.my-round {
   border-radius: 25px;
+}
+
+.dotted-hr {
+  border:none;
+  border-top: 2px dashed rgb(121, 110, 110);
+  color:#fff;
+  background-color:#fff;
+  height:2px;
+  width:90%;
+}
+
+.vaccine-list-place {
+  min-height: 160px; 
+  margin: 20px 0px; 
+  padding: 20px;
 }
 
 .progress-span {

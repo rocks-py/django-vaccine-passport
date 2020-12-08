@@ -4,7 +4,7 @@
 
 {%block content%}
     {% for person in person_list %}
-    <div class="jumbotron vaccine-card">
+    <div class="jumbotron vaccine-card my-round">
       <div class="row">
         <div class="col-sm-2">
           <div class="avatar {% if person.sex == 'M' %} avatar-male {% else %} avatar-female {% endif %}"></div>
@@ -19,7 +19,7 @@
                 
               </div>
             </div>
-            <div class="vaccine-card bg-white" style="height:160px; margin: 20px 0px; padding: 20px;">
+            <div class="vaccine-list-place my-round bg-white">
               
               {% for vaccine_data in person.get_sorted_vaccine_list %}
               <div class="row vaccine__item {% if not vaccine_data.vaccination_date %}deactivated{%endif%}" data-toggle="modal" data-target="#exampleModal" 
@@ -45,6 +45,9 @@
                 </div>
                 {%endif%}
               </div>
+              {%if not forloop.last%}
+              <hr class="dotted-hr"/>
+              {%endif%}
               {% endfor %}
             </div>
           </div>
