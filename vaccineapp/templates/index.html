@@ -21,20 +21,28 @@
             <div class="vaccine-card bg-white" style="height:160px; margin: 20px 0px; padding: 20px;">
               
               {% for vaccine_data in person.vaccine_data.all %}
-              <div class="row vaccine__item" data-toggle="modal" data-target="#exampleModal" 
+              <div class="row vaccine__item {% if not vaccine_data.vaccination_date %}deactivated{%endif%}" data-toggle="modal" data-target="#exampleModal" 
                   disease-name="{{vaccine_data.disease.name}}" disease-id="{{vaccine_data.disease.pk}}" vaccine-id="{{vaccine_data.vaccine.pk}}" person-vaccine-id="{{vaccine_data.pk}}" person-vaccine-date="{{vaccine_data.vaccination_date | date:"Y-m-d"}}">
+                
+                
                 <div class="col-sm-1">
+                  {% if vaccine_data.vaccination_date %}
                   <img src="{% static 'img/check_icon.png' %}" width="20">
+                  {%endif%}
                 </div>
+                
+                
                 <div class="col-sm-3">
-                  <span style="font-size:20px;">{{vaccine_data.disease.name}}</span>  
+                  <span>{{vaccine_data.disease.name}}</span>  
                 </div>
                 <div class="col-sm-6">
-                  <span style="font-size:20px;">{{vaccine_data.vaccine.name}}</span>  
+                  <span>{{vaccine_data.vaccine.name}}</span>  
                 </div>
+                {%if vaccine_data.vaccination_date %}
                 <div class="col-sm-2">
-                  <span style="font-size:20px;">до {{vaccine_data.get_date_expire | date:"m/Y" }}</span>
+                  <span>до {{vaccine_data.get_date_expire | date:"m/Y" }}</span>
                 </div>
+                {%endif%}
               </div>
               {% endfor %}
 
