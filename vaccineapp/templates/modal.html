@@ -19,7 +19,7 @@
         <input id="vaccine-date" type="date" class="form-control"></input>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Удалить</button>
+        <button type="button" class="btn btn-danger" id="delete-person-vaccine" data-dismiss="modal">Удалить</button>
         <button type="button" class="btn btn-primary" id="save-person-vaccine" data-dismiss="modal">Сохранить изменения</button>
       </div>
     </div>
@@ -39,6 +39,20 @@
           window.location = '/';
         });
       });
+
+      $('#delete-person-vaccine').on('click', function() {
+        $.ajax({
+          url: 'api/person-vaccine/' + person_vaccine_id,
+          type: 'DELETE',
+          beforeSend: function(xhr) {
+              xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+          },
+          success: function() {
+            window.location = '/';
+          }
+        });
+      });
+
 
       $('.vaccine__item').on('click', function (event) {
         title = this.getAttribute('disease-name');
