@@ -82,7 +82,7 @@ class PersonVaccine(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, verbose_name="человек")
     disease = models.ForeignKey(Disease, on_delete=models.CASCADE, null=True, verbose_name="заболевание")
     vaccine = models.ForeignKey(Vaccine, on_delete=models.CASCADE, null=True, verbose_name="вакцина")
-    vaccination_date = models.DateField(null=True, verbose_name="Дата вакцинации")
+    vaccination_date = models.DateField(null=True, blank=True, verbose_name="Дата вакцинации")
     
     class Meta:
         verbose_name = "Вакцины человека"
