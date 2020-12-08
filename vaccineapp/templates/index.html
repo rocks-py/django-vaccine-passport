@@ -21,7 +21,7 @@
             </div>
             <div class="vaccine-card bg-white" style="height:160px; margin: 20px 0px; padding: 20px;">
               
-              {% for vaccine_data in person.vaccine_data.all %}
+              {% for vaccine_data in person.get_sorted_vaccine_list %}
               <div class="row vaccine__item {% if not vaccine_data.vaccination_date %}deactivated{%endif%}" data-toggle="modal" data-target="#exampleModal" 
                   disease-name="{{vaccine_data.disease.name}}" disease-id="{{vaccine_data.disease.pk}}" vaccine-id="{{vaccine_data.vaccine.pk}}" person-vaccine-id="{{vaccine_data.pk}}" person-vaccine-date="{{vaccine_data.vaccination_date | date:"Y-m-d"}}">
                 

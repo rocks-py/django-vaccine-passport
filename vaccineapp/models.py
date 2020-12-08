@@ -77,6 +77,10 @@ class Person(models.Model):
         verbose_name = "Персона"
         verbose_name_plural = "Персоны"
 
+    def get_sorted_vaccine_list(self):
+        vaccine_data = PersonVaccine.objects.filter(person=self).order_by('-vaccination_date', 'disease__name')
+        return vaccine_data
+
 
 class PersonVaccine(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, verbose_name="человек")

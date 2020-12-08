@@ -11,11 +11,9 @@ def index(request):
     # # if not request.user:
     # #     HttpResponseRedirect(reverse('promo'))
     context = {}
-     # if this is a POST request we need to process the form data
+     # создаю нового пользователя
     if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
         form = PersonForm(request.POST)
-        # check whether it's valid:
         if form.is_valid():
             userObj = User.objects.get(email='temaez@ya.ru')
             person = Person(

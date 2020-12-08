@@ -73,7 +73,6 @@
 
         $.get("/api/disease/" + disease_id).done(function (data) {
           var $select = $("#vaccine-select");
-          console.log(data);
           $select.empty();
           $select.append($("<option />").text("Выберите вакцину"));
           $.each(data, function() {
