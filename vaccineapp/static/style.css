@@ -176,3 +176,16 @@ nav .menu {
 }
 
 
+/* collection_detail.html */
+
+.collection__breakline {
+  height: 10px;
+  background-color: darkslategray;
+  margin: 50px 30px;
+  border-radius: 5px;
+}
+
+.сollection_detail__save {
+  margin: 30px;
+  margin-left: 0;
+}

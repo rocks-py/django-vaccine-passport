@@ -59,6 +59,12 @@ class CollectionList(ListView):
 class CollectionDetail(DetailView):
     model = Collection
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["persons"] = Person.objects.filter(user__email__icontains='temaez')
+        return context
+    
+
 
 
 

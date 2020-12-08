@@ -1,12 +1,30 @@
 {% extends 'base.html'%} {% load static %} {%block content%}
-
+<a href="/collections" class="btn btn-success">&lt; Назад</a>
+<h2 class="text-center">{{collection.name}}</h2>
 {%for disease in collection.diseases.all%}
-  <h2>{{disease.name}}</h2>
-  <br>
-  <ul>
-    {%for vaccine in disease.vaccines.all %}
-    <li>{{vaccine.name}}</li>
-    {%endfor%}
-  </ul>
+  <h4>{{disease.name}}</h4>
+  <hr />
+  {%for vaccine in disease.vaccines.all %}
+  <div class="form-check ml-5">
+    <input class="form-check-input" type="radio" name="vaccine-disease-{{disease.pk}}" id="vaccine-{{vaccine.pk}}" value="{{vaccine.pk}}" checked>
+    <label class="form-check-label" for="vaccine-{{vaccine.pk}}">
+      {{vaccine.name}}
+    </label>
+  </div>
+  {%endfor%}
 {%endfor%}
+
+<div class="collection__breakline"></div>
+
+<h4>Участники:</h4>
+{%for person in persons.all%}
+<div class="form-check ml-5">
+  <input class="form-check-input" type="checkbox" value="" id="cbx-{{person.pk}}">
+  <label class="form-check-label" for="cbx-{{person.pk}}">
+    {{person.name}}
+  </label>
+</div>
+{%endfor%}
+
+<button type="button" class="btn btn-primary сollection_detail__save" id="save-person-vaccine">Добавить вакцины</button>
 {%endblock%}
