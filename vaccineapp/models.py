@@ -81,6 +81,14 @@ class Person(models.Model):
         vaccine_data = PersonVaccine.objects.filter(person=self).order_by('-vaccination_date', 'disease__name')
         return vaccine_data
 
+    def get_defence_level(self):
+        vaccinated = PersonVaccine.objects.filter(person=self, vaccination_date__isnull=False).count()
+        overall = PersonVaccine.objects.filter(person=self).count()
+        percent = round((vaccinated / overall) * 100)
+        dictionary = { "vaccinated": vaccinated, "overall": overall, "percent": percent}
+        print(dictionary)
+        return dictionary
+
 
 class PersonVaccine(models.Model):
     person = models.ForeignKey(Person, on_delete=models.CASCADE, null=True, verbose_name="человек")

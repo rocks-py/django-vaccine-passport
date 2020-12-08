@@ -8,16 +8,16 @@
       <div class="row">
         <div class="col-sm-2">
           <div class="avatar {% if person.sex == 'M' %} avatar-male {% else %} avatar-female {% endif %}" style="position: relative;">
-            <i class="fa fa-shield-virus" style="font-size:60px; color: rgba(40,167,69, 100%); position: absolute; bottom: -50px; left: 20px;"></i>
+            <i class="fa fa-shield-virus" style="font-size:60px; color: rgba(40,167,69, {{person.get_defence_level.percent}}%); position: absolute; bottom: -50px; left: 20px;"></i>
           </div>
           
         </div>
         <div class="col-sm-10">
           <div class="container-fluid">
             <h4 class="white-label">{{person.name}}</h4> 
-            <b style="margin-bottom: 10px; display: block;">Уровень защищенности 7 / 9</b>
+            <b style="margin-bottom: 10px; display: block;">Уровень защищенности {{person.get_defence_level.vaccinated}} / {{person.get_defence_level.overall}} </b>
             <div class="progress">
-              <div class="progress-bar bg-success" role="progressbar" style="width: 70%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="90">
+              <div class="progress-bar bg-success" role="progressbar" style="width: {{person.get_defence_level.percent}}%" aria-valuenow="{{person.get_defence_level.vaccinated}}" aria-valuemin="0" aria-valuemax="{{person.get_defence_level.overall}}">
                 <!-- <span class="progress-span">7 / 9</span> -->
                 
               </div>
