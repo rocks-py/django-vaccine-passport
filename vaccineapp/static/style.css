@@ -218,6 +218,10 @@ nav .menu {
   color: gray;
 }
 
+.dropdown-menu a {
+  color: black;
+}
+
 
 
 

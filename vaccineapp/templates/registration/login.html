@@ -1,4 +1,4 @@
-{% extends 'base.html'%}
+{% extends '../base.html'%}
 {% load static %}
 
 
@@ -11,17 +11,19 @@
                     <h1 class="text-center">Авторизация</h1>
                 </div>
                 <div class="row">
-                    <form method="post">
+                    <form method="post" action="/accounts/login/" id="login-form">
                         {% csrf_token %}
-                        <div>
-                            <label for="email-input">почта</label>
-                            <input id="email-input" type="email" class="form-control"></input>
+                        {% comment %} <div>
+                            <label for="id_email">почта</label>
+                            <input name="email" id="id_email" type="text" class="form-control"></input>
                         </div>
                         <div>
-                            <label for="password-input">пароль</label>
-                            <input id="password-input" type="password" class="form-control"></input>
-                        </div>
-                        {% comment %} {{ form.as_p }} {% endcomment %}
+                            <label for="id_password">пароль</label>
+                            <input name="password" id="id_password" type="password" class="form-control"></input>
+                        </div> {% endcomment %}
+
+                        
+                        {{ form.as_p }}
                         <div class="" style="margin-top: 20px;">
                             <button type="submit" class="btn btn-primary" style="width: 100%;">Войти</button>
                         </div>

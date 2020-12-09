@@ -1,3 +1,4 @@
+from django.urls import path, include
 
 from . import views
 
@@ -11,4 +12,5 @@ urlpatterns = [
     path('collections/<int:pk>/', views.CollectionDetail.as_view(), name='collection-detail'),
     path('promo', views.promo, name='promo'),
     path('login', views.login, name='login'),
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

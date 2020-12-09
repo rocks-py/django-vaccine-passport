@@ -5,17 +5,32 @@ from vaccineapp.forms import SearchForm, PersonForm
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
+# def login(request):
+#     template = "login.html"
+#     params = dict()
+#     if request.method == "POST":
+#         email = request.POST.get("email", "").lower()
+#         password = request.POST.get("password", "")
+#         print(request.user.is_authenticated)
+#         user = authenticate(username=email, password=password)
+#         print(user)
+#         if user:
+#             print(request.user.is_authenticated)
+#             template = "index.html"
+#             return render(request, template, params)
+#     return render(request, template, params)
+
+
 def promo(request):
-    return render(request, 'promo.html') 
+    return render(request, 'promo.html')
 
-def login(request):
-    return render(request, 'login.html') 
-
-@login_required
+@login_required(login_url='/promo')
 def index(request):
     # # if not request.user:
     # #     HttpResponseRedirect(reverse('promo'))
