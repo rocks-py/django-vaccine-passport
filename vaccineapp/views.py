@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from vaccineapp.models import Vaccine, Person, User, Collection, PersonVaccine, Disease
+from vaccineapp.models import Vaccine, Person, Collection, PersonVaccine, Disease
 from vaccineapp.forms import SearchForm, PersonForm
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
@@ -35,11 +35,13 @@ def index(request):
     # # if not request.user:
     # #     HttpResponseRedirect(reverse('promo'))
     context = {}
+    print(request.user.username)
+
      # создаю нового пользователя
     if request.method == 'POST':
         form = PersonForm(request.POST)
         if form.is_valid():
-            userObj = User.objects.get(email='temaez@ya.ru')
+            userObj = User.objects.get(email=request.user.email)
             person = Person(
                 name = form.cleaned_data['name'],
                 dateofbirth = form.cleaned_data['dateofbirth'],
@@ -52,7 +54,7 @@ def index(request):
             context['errors'] = form.errors 
 
 
-    person_list = Person.objects.filter(user__email__icontains='temaez')
+    person_list = Person.objects.filter(user__email__icontains=request.user.email)
     for item in person_list:
         item.vaccine_data = PersonVaccine.objects.filter(person=item)
     context['person_list'] = person_list
@@ -69,7 +71,7 @@ class CollectionDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["persons"] = Person.objects.filter(user__email__icontains='temaez')
+        context["persons"] = Person.objects.filter(user__email__icontains=request.user.email)
         return context
     
 

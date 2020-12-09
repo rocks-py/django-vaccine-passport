@@ -21,7 +21,7 @@
     </div>
     <div class="nav-item dropdown my-2 my-lg-0" id="nav-user">
         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        {{ user.get_username }}
+        {{ request.user.email }}
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/settings"><i class="fa fa-sliders-h"></i>Настройки</a>

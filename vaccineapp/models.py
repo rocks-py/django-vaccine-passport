@@ -1,16 +1,16 @@
 from django.db import models
 from django.urls import reverse
-
+from django.contrib.auth.models import User
 # Create your models here.
 
-class User(models.Model):
-    email = models.EmailField(max_length=200)
-    def __str__(self):
-        return self.email
+# class User(models.Model):
+#     email = models.EmailField(max_length=200)
+#     def __str__(self):
+#         return self.email
     
-    class Meta:
-        verbose_name = "Пользователь"
-        verbose_name_plural = "Пользователи"
+#     class Meta:
+        # verbose_name = "Пользователь"
+        # verbose_name_plural = "Пользователи"
         
 class Vaccine(models.Model):
     name = models.CharField(max_length=200, verbose_name="название")
@@ -69,7 +69,7 @@ class Person(models.Model):
         ('F', 'FEMALE')
     )
     sex = models.CharField(max_length=1, choices=SEX, verbose_name="пол", default='M')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="пользователь")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="пользователь", blank=True, null=True)
     def __str__(self):
         return self.name
 
@@ -104,9 +104,3 @@ class PersonVaccine(models.Model):
         from dateutil.relativedelta import relativedelta
         protection_period = self.vaccine.protection_period
         return self.vaccination_date + relativedelta(months=protection_period)
-
-
-# TODO: можно заменить через ManyToManyField
-class UserPerson(models.Model):
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
