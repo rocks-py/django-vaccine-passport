@@ -43,20 +43,6 @@ def index(request):
     context['personForm'] = person
     return render(request, 'index.html', context) 
 
-def collection_list(request):
-    context = {}
-    # form = SearchForm(request.GET)
-    # if form.is_valid():
-    #     search = form.cleaned_data['search']
-    #     context['collection_list'] = Vaccine.objects.all().filter(name__icontains=search)
-    #     context['searchForm'] = form
-    # else:
-    #     context['errors'] = form.errors
-
-    collection_list = Collection.objects.all()
-    context['collection_list'] = collection_list
-    return render(request, 'collection_list.html', context) 
-
 class CollectionList(ListView):
     model = Collection
 
