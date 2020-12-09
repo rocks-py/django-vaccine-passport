@@ -39,7 +39,7 @@
                         </select>
                         
                         </td>
-                        <td><button class="btn btn-danger" person-id="{{person.pk}}">Удалить</button></td>
+                        <td><button class="btn btn-danger delete-person" person-id="{{person.pk}}" data-toggle="modal" data-target="#exampleModal">Удалить</button></td>
                     </tr>
                     {%endfor%}
                 </tbody>
@@ -49,6 +49,27 @@
     
         <div class="hide settings_view settings_notifications">
             <h1 class="mt-4">Заглушка</h1>
+        </div>
+    </div>
+
+    {% comment %} Модальное окно {% endcomment %}
+    <div class="modal" tabindex="-1" role="dialog" id="exampleModal">
+        <div class="modal-dialog  modal-dialog-centered" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Удаление</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Вы уверены?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-danger" id="delete-btn">Удалить</button>
+            </div>
+            </div>
         </div>
     </div>
 </main>
@@ -108,6 +129,23 @@ $('.person-table .person-sex').on('change', function(event) {
 });
 
 // удаление
+var person_id;
+$('.person-table .delete-person').on('click', function(event) {
+    person_id = this.getAttribute('person-id');
+});
+
+$('#delete-btn').on('click', function() {
+    $.ajax({
+        url: '/api/person/' + person_id,
+        type: 'DELETE',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRFToken", '{{ csrf_token }}');
+        },
+        success: function() {
+            window.location = '/settings';
+        }
+    });
+});
 </script>
 <style>
 body {
