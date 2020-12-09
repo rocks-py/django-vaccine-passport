@@ -11,20 +11,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
-# def login(request):
-#     template = "login.html"
-#     params = dict()
-#     if request.method == "POST":
-#         email = request.POST.get("email", "").lower()
-#         password = request.POST.get("password", "")
-#         print(request.user.is_authenticated)
-#         user = authenticate(username=email, password=password)
-#         print(user)
-#         if user:
-#             print(request.user.is_authenticated)
-#             template = "index.html"
-#             return render(request, template, params)
-#     return render(request, template, params)
+def register(request):
+    template = "registration/register.html"
+    params = dict()
+    if request.method == "POST":
+        email = request.POST.get("email", "").lower()
+        password = request.POST.get("password", "")
+        # создали нового пользователя
+        User.objects.create_user(email, email, password)
+        print(request.user.is_authenticated)
+        print(user)
+        if user:
+            HttpResponseRedirect(reverse('login'))
+            # print(request.user.is_authenticated)
+            # template = "index.html"
+            # return render(request, template, params)
+
+    return render(request, template, params)
 
 
 def promo(request):
@@ -71,7 +74,7 @@ class CollectionDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["persons"] = Person.objects.filter(user__email__icontains=request.user.email)
+        context["persons"] = Person.objects.filter(user__email__icontains=self.request.user.email)
         return context
     
 

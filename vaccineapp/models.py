@@ -84,7 +84,9 @@ class Person(models.Model):
     def get_defence_level(self):
         vaccinated = PersonVaccine.objects.filter(person=self, vaccination_date__isnull=False).count()
         overall = PersonVaccine.objects.filter(person=self).count()
-        percent = round((vaccinated / overall) * 100)
+        percent = None
+        if overall != 0:
+            percent = round((vaccinated / overall) * 100)
         dictionary = { "vaccinated": vaccinated, "overall": overall, "percent": percent}
         print(dictionary)
         return dictionary
