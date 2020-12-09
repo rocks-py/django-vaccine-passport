@@ -12,5 +12,5 @@ urlpatterns = [
     path('collections/<int:pk>/', views.CollectionDetail.as_view(), name='collection-detail'),
     path('promo', views.promo, name='promo'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/register', views.register, name='register'),
+    path('accounts/register/', views.register, name='register'),
 ]

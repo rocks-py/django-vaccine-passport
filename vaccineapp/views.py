@@ -18,7 +18,7 @@ def register(request):
         email = request.POST.get("email", "").lower()
         password = request.POST.get("password", "")
         # создали нового пользователя
-        User.objects.create_user(email, email, password)
+        user = User.objects.create_user(email, email, password)
         print(request.user.is_authenticated)
         print(user)
         if user:
