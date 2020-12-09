@@ -76,13 +76,25 @@ $('.person-table .person-name').on('input', function(event) {
             name: new_name,
             csrfmiddlewaretoken: '{{ csrf_token }}'
         };
-
         $.post('/api/person/' + person_id + '/', data);
     }
-    
 });
 
 // редактирование даты
+$('.person-table .person-birth-date').on('input', function(event) {
+    var date = $(this).val();
+    var typedDate = new Date(date);
+    var lowLimitDate = new Date('1900-01-01');
+    var highLimitDate = Date.now();
+    if (typedDate > lowLimitDate && typedDate < highLimitDate) {
+        var person_id = this.getAttribute('person-id');
+        var data = {
+            date: date,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        };
+        $.post('/api/person/' + person_id + '/', data);
+    }
+});
 
 // редактирование пола
 

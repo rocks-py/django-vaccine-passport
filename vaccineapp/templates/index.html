@@ -16,7 +16,10 @@
         </div>
         <div class="col-sm-10">
           <div class="container-fluid">
-            <h4 class="white-label">{{person.name}}</h4> 
+            <div>
+            <h4 class="white-label" style="display:inline-block;">{{person.name}}</h4>
+            <span class="float-right">{{person.dateofbirth | date:"Y-m-d" }}</span>
+            </div>
             <b style="margin-bottom: 10px; display: block;">Уровень защищенности {{person.get_defence_level.vaccinated}} / {{person.get_defence_level.overall}} </b>
             <div class="progress">
               <div class="progress-bar bg-success" role="progressbar" style="width: {{person.get_defence_level.percent}}%" aria-valuenow="{{person.get_defence_level.vaccinated}}" aria-valuemin="0" aria-valuemax="{{person.get_defence_level.overall}}">

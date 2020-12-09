@@ -153,11 +153,16 @@ def person(request, *args, **kwargs):
         if name:
             person.name = name
             changed = True
+        
+        dateofbirth = request.POST.get('date')
+        if dateofbirth:
+            person.dateofbirth = dateofbirth
+            changed = True
 
         if changed:
             person.save()
         return JsonResponse({'result': True }, safe=False) 
-        
+
     elif request.method == 'DELETE':
         person = Person.objects.filter(pk=person_pk).first()
         person.delete()
