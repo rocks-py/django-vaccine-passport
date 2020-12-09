@@ -5,6 +5,8 @@ from vaccineapp.forms import SearchForm, PersonForm
 from django.urls import reverse
 from django.views.generic import ListView, DetailView
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 def promo(request):
@@ -13,6 +15,7 @@ def promo(request):
 def login(request):
     return render(request, 'login.html') 
 
+@login_required
 def index(request):
     # # if not request.user:
     # #     HttpResponseRedirect(reverse('promo'))
@@ -43,10 +46,10 @@ def index(request):
     context['personForm'] = person
     return render(request, 'index.html', context) 
 
-class CollectionList(ListView):
+class CollectionList(LoginRequiredMixin, ListView):
     model = Collection
 
-class CollectionDetail(DetailView):
+class CollectionDetail(LoginRequiredMixin, DetailView):
     model = Collection
 
     def get_context_data(self, *args, **kwargs):
