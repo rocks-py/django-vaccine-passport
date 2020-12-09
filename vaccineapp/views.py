@@ -34,7 +34,11 @@ def promo(request):
     return render(request, 'promo.html')
 
 def settings(request):
-    return render(request, 'settings.html')
+    context = {}
+    person_list = Person.objects.filter(user__email__icontains=request.user.email)
+    print(person_list)
+    context['person_list'] = person_list
+    return render(request, 'settings.html', context)
 
 @login_required(login_url='/promo')
 def index(request):

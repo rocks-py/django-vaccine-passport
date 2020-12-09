@@ -20,29 +20,21 @@
                     <tr>
                     <th scope="col">#</th>
                     <th scope="col">Имя</th>
-                    <th scope="col">Фамилия</th>
-                    <th scope="col">Username</th>
+                    <th scope="col">Дата рождения</th>
+                    <th scope="col">Пол</th>
+                    <th scope="col">Действия</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {%for person in person_list%}
                     <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <th scope="row">{{forloop.counter}}</th>
+                        <td>{{person.name}}</td>
+                        <td>{{person.dateofbirth}}</td>
+                        <td>{{person.sex}}</td>
+                        <td><button class="btn btn-danger">Удалить</button></td>
                     </tr>
-                    <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>Thornton</td>
-                    <td>@fat</td>
-                    </tr>
-                    <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>the Bird</td>
-                    <td>@twitter</td>
-                    </tr>
+                    {%endfor%}
                 </tbody>
             </table>
             
