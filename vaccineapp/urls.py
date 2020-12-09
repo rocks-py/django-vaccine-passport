@@ -6,6 +6,7 @@ urlpatterns = [
     path('api/person/<int:pk>/', views.person, name='person'),
     path('api/person-vaccine/', views.post_person_vaccine, name='api-person-vaccine'),
     path('api/person-vaccine/<int:pk>/', views.person_vaccine_item, name='api-person-vaccine-item'),
+    path('api/person-vaccine/new/', views.person_vaccine_new, name='api-person-vaccine-new'),
     path('api/disease/<int:pk>/', views.disease_json, name='api-disease'),
     path('api/collection/', views.collection_json, name='api-collection'),
     path('', views.index, name='index'),

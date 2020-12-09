@@ -44,8 +44,6 @@ def settings(request):
 
 @login_required(login_url='/promo')
 def index(request):
-    # # if not request.user:
-    # #     HttpResponseRedirect(reverse('promo'))
     context = {}
     print(request.user.username)
 
@@ -70,6 +68,7 @@ def index(request):
     for item in person_list:
         item.vaccine_data = PersonVaccine.objects.filter(person=item)
     context['person_list'] = person_list
+    context['disease_list'] = Disease.objects.all()
 
     person = PersonForm(initial={'name': 'Artem', 'dateofbirth': '1970-01-01', 'sex': 'M'})
     context['personForm'] = person
@@ -101,7 +100,7 @@ def collection_json(request):
         form = SearchForm(request.GET)
     else:
         form = SearchForm()
-    # если форма не валидная, то автоматически создаётся в форме 
+    # если форма не валидная, то автоматически создаются в форме 
     # ошибки по каждому полю form.errors
     # и можно этим воспользоваться
     search = ''
@@ -125,7 +124,7 @@ def disease_json(request, *args, **kwargs):
 
 
 
-def person_vaccine_item(request, *args, **kwargs): 
+def person_vaccine_item(request, *args, **kwargs):
     person_vaccine_pk = kwargs.get('pk')
     if request.method == 'POST':
         vaccination_date = request.POST.get('vaccination_date')
@@ -135,14 +134,26 @@ def person_vaccine_item(request, *args, **kwargs):
         obj.vaccine = Vaccine.objects.filter(pk=vaccine_id).first()
         obj.vaccination_date = vaccination_date
         obj.save()
-        vac_list = [obj.vaccine.name, obj.vaccination_date]
-        print(vac_list)
-        return JsonResponse(vac_list, safe=False) 
+        # vac_list = [obj.vaccine.name, obj.vaccination_date]
+        # print(vac_list)
+        return JsonResponse({"result": True}, safe=False) 
     elif request.method == 'DELETE':
         obj = PersonVaccine.objects.filter(pk=person_vaccine_pk).first()
         obj.delete()
         return JsonResponse({'result': True }, safe=False) 
 
+
+def person_vaccine_new(request, *args, **kwargs):
+    if request.method == 'POST':
+        vaccination_date = request.POST.get('vaccination_date')
+        vaccine = Vaccine.objects.filter(pk=request.POST.get('vaccine_id')).first()
+        disease = Disease.objects.filter(pk=request.POST.get('disease_id')).first()
+        person = Person.objects.filter(pk=request.POST.get('person_id')).first()
+        obj = PersonVaccine(vaccine=vaccine, disease=disease, person=person)
+        if vaccination_date != '':
+            obj.vaccination_date = vaccination_date
+        obj.save()
+        return JsonResponse({"result": True}, safe=False) 
 
 def person(request, *args, **kwargs): 
     person_pk = kwargs.get('pk')

@@ -27,6 +27,12 @@
                 
               </div>
             </div>
+            <span style="margin-top: 15px; display: block;">
+              <b>Вакцины:</b> 
+              <a style="color:blue; font-size:1.2em;" class="add-vaccine" person-id="{{person.pk}}" data-toggle="modal" data-target="#addVaccineModal">
+                <i class="fa fa-plus-square"></i>
+              </a>
+            </span>
             <div class="vaccine-list-place my-round bg-white">
               
               {% for vaccine_data in person.get_sorted_vaccine_list %}
@@ -111,7 +117,7 @@
         // Log the clicked element in the console
         console.log(event.target);
 
-        personForm.classList.remove('hide');
+        personForm.classList.toggle('hide');
       }, false);
 
       $( "#id_sex" ).change(function(event) {
@@ -129,4 +135,5 @@
     </script>
 
   {%include 'modal.html'%}
+  {%include 'modal_add_vaccine.html'%}
 {%endblock%}

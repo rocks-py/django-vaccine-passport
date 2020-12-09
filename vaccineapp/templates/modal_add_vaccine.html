@@ -1,0 +1,72 @@
+<!-- Modal -->
+<div class="modal" id="addVaccineModal" tabindex="-1" role="dialog" aria-labelledby="addVaccineModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addVaccineModalLabel">Добавить вакцину</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <select class="custom-select custom-select-lg mb-3" id="disease-select-model">
+          <option selected>Выберите заболевание</option>
+          {%for disease in disease_list%}
+            <option value="{{disease.pk}}">{{disease.name}}</option>
+          {%endfor%}
+        </select>
+        <select class="custom-select custom-select-lg mb-3" id="vaccine-select-model">
+          <option selected>Выберите вакцину</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <label for="vaccine-date-model">Дата вакцинации (можно добавить позже)</label>
+        <input id="vaccine-date-model" type="date" class="form-control"></input>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" id="delete-person-vaccine" data-dismiss="modal">Отмена</button>
+        <button type="button" class="btn btn-success" id="add-vaccine-btn" data-dismiss="modal">Добавить</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+      var person_id;
+      // заполняем person-id при клике на иконку с плюсом (глобальная переменная)
+      $('.add-vaccine').on('click', function() {
+        person_id = this.getAttribute('person-id');
+      });
+
+      $('#add-vaccine-btn').on('click', function() {
+        var diseaseVal = $("#disease-select-model").val();
+        var vaccineVal = $("#vaccine-select-model").val();
+        var dateVal = $('#vaccine-date-model').val();
+
+        var data = {
+          // используем глобальную переменную person_id
+          person_id: person_id,
+          disease_id: diseaseVal,
+          vaccine_id: vaccineVal,
+          vaccination_date: dateVal,
+          csrfmiddlewaretoken: '{{ csrf_token }}'
+        };
+
+        $.post('/api/person-vaccine/new/', data, function() {
+          window.location = '/';
+        });
+      });
+
+      $('#disease-select-model').on('change', function() {
+        disease_id = $(this).val();
+
+        $.get("/api/disease/" + disease_id).done(function (data) {
+          var $select = $("#vaccine-select-model");
+          $select.empty();
+          $select.append($("<option />").text("Выберите вакцину"));
+          $.each(data, function() {
+              $select.append($("<option />").val(this.vaccines).text(this.vaccines__name));
+          });
+        });
+      });
+</script>
