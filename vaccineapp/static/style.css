@@ -247,3 +247,15 @@ nav .menu {
   height: 100%; 
   width: 100%;
 }
+
+
+/* login.html */
+.login-container {
+  background: url("img/login_background.png") no-repeat center center fixed;
+  background-size: cover;
+  position: absolute;
+  top: 0; 
+  left: 0; 
+  height: 100%; 
+  width: 100%;
+}
