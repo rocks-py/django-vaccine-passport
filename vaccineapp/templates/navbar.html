@@ -24,7 +24,7 @@
         {{ request.user.email }}
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/settings"><i class="fa fa-sliders-h"></i>Настройки</a>
+            <a class="dropdown-item" href="{% url 'settings' %}"><i class="fa fa-sliders-h"></i>Настройки</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i>Выход</a>
         </div>

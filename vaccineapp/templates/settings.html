@@ -1,0 +1,79 @@
+{% extends 'base.html'%}
+{% load static %}
+
+
+{%block content%}
+<main class="settings-container d-flex">
+    <!-- Sidebar -->
+    <div class="bg-light border-right" id="sidebar-wrapper">
+      <div class="list-group list-group-flush" style="margin-top: 100px;">
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-id="profile">Профиль</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light" data-id="notifications">Уведомления</a>
+        <a href="#" class="list-group-item list-group-item-action bg-light disabled" data-id="export">Экспорт данных</a>
+      </div>
+    </div>
+    <div class="container-fluid" style="margin-top: 100px;">
+        <div class="settings_view settings_profile">
+            <h1>Участники</h1>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Username</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                    </tr>
+                    <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+    
+        <div class="hide settings_view settings_notifications">
+            <h1 class="mt-4">Simple Sidebar</h1>
+            <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
+            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
+        </div>
+    </div>
+</main>
+<script>
+$('.list-group a').click(function() {
+    var data_id = this.getAttribute('data-id');
+    $('.settings_view').addClass('hide');
+    switch(data_id) {
+        case 'profile':
+            $('.settings_profile').removeClass('hide');
+            break;
+        case 'notifications':
+            $('.settings_notifications').removeClass('hide');
+            break;
+    }
+});
+</script>
+<style>
+body {
+  overflow: hidden;
+}
+
+
+</style>
+{%endblock%}

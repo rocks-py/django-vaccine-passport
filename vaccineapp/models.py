@@ -2,15 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 # Create your models here.
-
-# class User(models.Model):
-#     email = models.EmailField(max_length=200)
-#     def __str__(self):
-#         return self.email
-    
-#     class Meta:
-        # verbose_name = "Пользователь"
-        # verbose_name_plural = "Пользователи"
         
 class Vaccine(models.Model):
     name = models.CharField(max_length=200, verbose_name="название")
@@ -37,6 +28,7 @@ class Vaccine(models.Model):
         verbose_name = "Вакцина"
         verbose_name_plural = "Вакцины"
 
+
 class Disease(models.Model):
     name = models.CharField(max_length=200)
     vaccines = models.ManyToManyField(Vaccine, verbose_name="вакцины", blank=True)
@@ -46,6 +38,7 @@ class Disease(models.Model):
     class Meta:
         verbose_name = "Заболевание"
         verbose_name_plural = "Заболевания"
+
 
 class Collection(models.Model):
     name = models.CharField(max_length=200)
@@ -59,6 +52,7 @@ class Collection(models.Model):
 
     def get_absolute_url(self):
         return reverse("collection-detail", kwargs={"pk": self.pk})
+
 
 class Person(models.Model):
     name = models.CharField(max_length=200, verbose_name="имя человека")

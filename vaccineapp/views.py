@@ -33,6 +33,9 @@ def register(request):
 def promo(request):
     return render(request, 'promo.html')
 
+def settings(request):
+    return render(request, 'settings.html')
+
 @login_required(login_url='/promo')
 def index(request):
     # # if not request.user:

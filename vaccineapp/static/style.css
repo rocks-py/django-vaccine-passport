@@ -263,3 +263,21 @@ nav .menu {
   height: 100%; 
   width: 100%;
 }
+
+
+/* settings.html */
+.settings-container {
+  width: 100%;
+  /* background-color: yellow; */
+  top: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+.list-group-item {
+  padding-right: 70px;
+}
+
+.settings_profile {
+  padding: 30px;
+}
