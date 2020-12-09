@@ -21,18 +21,18 @@
     </div>
     <div class="nav-item dropdown my-2 my-lg-0" id="nav-user">
         <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        tema@tema.ru
+        {{ user.get_username }}
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="/settings"><i class="fa fa-sliders-h"></i>Настройки</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out-alt"></i>Выход</a>
+            <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt"></i>Выход</a>
         </div>
     </div>
     {%else%}
     <div class="collapse navbar-collapse"></div>
     <div class="nav-item dropdown my-2 my-lg-0" id="nav-user">
-        <a class="nav-link" href="/login" role="button">
+        <a class="nav-link" href="{% url 'login' %}" role="button">
         Войти
         </a>
     </div>
