@@ -1,7 +1,8 @@
 {% extends 'base.html'%} {% load static %} {%block content%}
-<a href="/collections" class="btn btn-success">&lt; Назад</a>
-<h2 class="text-center">{{collection.name}}</h2>
-{%for disease in collection.diseases.all%}
+<main role="main" class="container">
+  <a href="/collections" class="btn btn-success">&lt; Назад</a>
+  <h2 class="text-center">{{collection.name}}</h2>
+  {%for disease in collection.diseases.all%}
   <div disease-id="{{disease.pk}}" class="collection_disease_item">
     <h4>{{disease.name}}</h4>
     <hr />
@@ -12,7 +13,14 @@
     {%for vaccine in disease.vaccines.all %}
     <div class="row">
       <div class="form-check ml-5 col-5">
-        <input class="form-check-input vaccine-radiocbx" type="radio" name="vaccine-disease-{{disease.pk}}" id="vaccine-{{vaccine.pk}}" vaccine-id="{{vaccine.pk}}" checked>
+        <input
+          class="form-check-input vaccine-radiocbx"
+          type="radio"
+          name="vaccine-disease-{{disease.pk}}"
+          id="vaccine-{{vaccine.pk}}"
+          vaccine-id="{{vaccine.pk}}"
+          checked
+        />
         <label class="form-check-label" for="vaccine-{{vaccine.pk}}">
           {{vaccine.name}}
         </label>
@@ -21,23 +29,35 @@
     </div>
     {%endfor%}
   </div>
-  <div style="margin:30px;"></div>
-{%endfor%}
+  <div style="margin: 30px"></div>
+  {%endfor%}
 
-<div class="collection__breakline"></div>
+  <div class="collection__breakline"></div>
 
-<h4>Участники:</h4>
-{%for person in persons.all%}
-<div class="form-check ml-5">
-  <input class="form-check-input person-cbx" type="checkbox" value="" id="cbx-{{person.pk}}" person-id={{person.pk}}>
-  <label class="form-check-label" for="cbx-{{person.pk}}">
-    {{person.name}}
-  </label>
-</div>
-{%endfor%}
+  <h4>Участники:</h4>
+  {%for person in persons.all%}
+  <div class="form-check ml-5">
+    <input
+      class="form-check-input person-cbx"
+      type="checkbox"
+      value=""
+      id="cbx-{{person.pk}}"
+      person-id="{{person.pk}}"
+    />
+    <label class="form-check-label" for="cbx-{{person.pk}}">
+      {{person.name}}
+    </label>
+  </div>
+  {%endfor%}
 
-<button type="button" class="btn btn-primary сollection_detail__save" id="save-person-vaccine">Добавить вакцины</button>
-
+  <button
+    type="button"
+    class="btn btn-primary сollection_detail__save"
+    id="save-person-vaccine"
+  >
+    Добавить вакцины
+  </button>
+</main>
 <script>
   $('#save-person-vaccine').on('click', function() {
     var data = [];
@@ -59,7 +79,7 @@
       var disease_id = elem.getAttribute("disease-id");
       var vaccineElem = $(elem).find(".vaccine-radiocbx:checked")[0];
       var vaccine_id = vaccineElem.getAttribute('vaccine-id');
-      
+
       data.push({
         vaccine_id: vaccine_id,
         disease_id: disease_id
@@ -73,10 +93,10 @@
 
     $.ajax({
       type: "POST",
-      url: '/api/person-vaccine/', 
+      url: '/api/person-vaccine/',
       dataType: 'json',
       contentType:"application/json; charset=utf-8",
-      data: JSON.stringify(d), 
+      data: JSON.stringify(d),
       success: function() {
         window.location = '/collections';
       },

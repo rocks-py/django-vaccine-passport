@@ -3,6 +3,8 @@
 
 
 {%block content%}
+
+  <main role="main" class="container">
     {% for person in person_list %}
     <div class="jumbotron vaccine-card my-round">
       <div class="row">
@@ -90,9 +92,13 @@
     
     
     
-    <div class="text-center" id="add_person_btn">
+    <div class="text-center" id="add_person_btn" style="margin-bottom: 50px;">
       <button type="button" class="btn add-btn align-middle">Добавить человека</button>
     </div>
+
+    
+    
+  </main>
     <script>
       var btn = document.querySelector("#add_person_btn");
       var personForm = document.querySelector("#new-person-form");

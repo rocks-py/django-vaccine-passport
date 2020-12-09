@@ -7,6 +7,9 @@ from django.views.generic import ListView, DetailView
 from django.http import JsonResponse
 # Create your views here.
 
+def promo(request):
+    return render(request, 'promo.html') 
+
 def index(request):
     # # if not request.user:
     # #     HttpResponseRedirect(reverse('promo'))

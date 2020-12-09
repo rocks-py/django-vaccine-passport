@@ -235,3 +235,15 @@ nav .menu {
   margin: 30px;
   margin-left: 0;
 }
+
+
+/* promo.html */
+.promo-container {
+  background: url("img/promo_image.png") no-repeat center center fixed;
+  background-size: cover;
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  height: 100%; 
+  width: 100%;
+}

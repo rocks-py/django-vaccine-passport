@@ -1,53 +1,61 @@
 {% extends 'base.html'%} {% load static %} {%block content%}
-<div class="row">
-  <form method="GET" style="margin-bottom: 50px" class="w-100">
-    <div class="row justify-content-center">
-      <div class="w-80" style="margin-right: 20px">
-        <input
-          name="search"
-          type="text"
-          class="form-control"
-          value="{{request.GET.search}}"
-          id="ajax-search"
-        />
-      </div>
-      <div class="w-30">
-        <input type="submit" value="Search" class="btn btn-success" />
-      </div>
-    </div>
-    {%csrf_token%}
-  </form>
-</div>
-<div class="row" style="margin: 10px;">
-  <div class="col-12">
-    <div class="row justify-content-center" style="margin: 10px;"><button id="ajax-btn" class="btn btn-primary">Ajax</button></div>
-    <div class="row"><div id="AJAX"></div></div>
-  </div>
-  
-</div>
-<div class="row">
-  {%for collection in collection_list%}
-  <div class="col-lg-4 col-md-6 col-sm-12">
-    <div class="article collection__article">
-      <div class="collection__container" onclick="redirect('{{collection.get_absolute_url}}')">
-        <div class="row">
-          <div class="col-md-12"><h2>{{collection.name}}</h2></div>
+
+<main role="main" class="container">
+  <div class="row">
+    <form method="GET" style="margin-bottom: 50px" class="w-100">
+      <div class="row justify-content-center">
+        <div class="w-80" style="margin-right: 20px">
+          <input
+            name="search"
+            type="text"
+            class="form-control"
+            value="{{request.GET.search}}"
+            id="ajax-search"
+          />
         </div>
-        <hr />
-        <div class="row">
-          <div class="col-md-12">
-            <ul>
-              {%for disease in collection.diseases.all %}
-              <li>{{disease.name}}</li>
-              {%endfor%}
-            </ul>
+        <div class="w-30">
+          <input type="submit" value="Search" class="btn btn-success" />
+        </div>
+      </div>
+      {%csrf_token%}
+    </form>
+  </div>
+  <div class="row" style="margin: 10px">
+    <div class="col-12">
+      <div class="row justify-content-center" style="margin: 10px">
+        <button id="ajax-btn" class="btn btn-primary">Ajax</button>
+      </div>
+      <div class="row"><div id="AJAX"></div></div>
+    </div>
+  </div>
+  <div class="row">
+    {%for collection in collection_list%}
+    <div class="col-lg-4 col-md-6 col-sm-12">
+      <div class="article collection__article">
+        <div
+          class="collection__container"
+          onclick="redirect('{{collection.get_absolute_url}}')"
+        >
+          <div class="row">
+            <div class="col-md-12"><h2>{{collection.name}}</h2></div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-12">
+              <ul>
+                {%for disease in collection.diseases.all %}
+                <li>{{disease.name}}</li>
+                {%endfor%}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    {%endfor%}
   </div>
-  {%endfor%}
-</div>
+</main>
+
 <script>
   function redirect(url) {
     window.location = url;
