@@ -15,7 +15,8 @@
     <div class="container-fluid" style="margin-top: 100px;">
         <div class="settings_view settings_profile">
             <h1>Участники</h1>
-            <table class="table">
+            <div class="row">
+            <table class="table person-table col-md-10" style="min-width:800px;">
                 <thead class="thead-dark">
                     <tr>
                     <th scope="col">#</th>
@@ -28,26 +29,31 @@
                 <tbody>
                     {%for person in person_list%}
                     <tr>
-                    <th scope="row">{{forloop.counter}}</th>
-                        <td>{{person.name}}</td>
-                        <td>{{person.dateofbirth}}</td>
-                        <td>{{person.sex}}</td>
-                        <td><button class="btn btn-danger">Удалить</button></td>
+                        <th scope="row" style="vertical-align: middle;">{{forloop.counter}}</th>
+                        <td><input type="text" value="{{person.name}}" person-id="{{person.pk}}" class="person-name form-control"></input></td>
+                        <td><input type="date" value="{{person.dateofbirth | date:"Y-m-d" }}" person-id="{{person.pk}}" class="person-birth-date form-control"></input></td>
+                        <td>
+                        <select person-id="{{person.pk}}" class="person-sex form-control">
+                            <option value="M" {%if person.sex == 'M'%} selected {%endif%}>Male</option>
+                            <option value="F" {%if person.sex == 'F'%} selected {%endif%}>Female</option>
+                        </select>
+                        
+                        </td>
+                        <td><button class="btn btn-danger" person-id="{{person.pk}}">Удалить</button></td>
                     </tr>
                     {%endfor%}
                 </tbody>
             </table>
-            
+            </div>
         </div>
     
         <div class="hide settings_view settings_notifications">
-            <h1 class="mt-4">Simple Sidebar</h1>
-            <p>The starting state of the menu will appear collapsed on smaller screens, and will appear non-collapsed on larger screens. When toggled using the button below, the menu will change.</p>
-            <p>Make sure to keep all page content within the <code>#page-content-wrapper</code>. The top navbar is optional, and just for demonstration. Just create an element with the <code>#menu-toggle</code> ID which will toggle the menu when clicked.</p>
+            <h1 class="mt-4">Заглушка</h1>
         </div>
     </div>
 </main>
 <script>
+// показываю и скрываю меню
 $('.list-group a').click(function() {
     var data_id = this.getAttribute('data-id');
     $('.settings_view').addClass('hide');
@@ -60,6 +66,27 @@ $('.list-group a').click(function() {
             break;
     }
 });
+
+// редактирование имени
+$('.person-table .person-name').on('input', function(event) {
+    var new_name = $(this).val();
+    if (new_name !== '') {
+        var person_id = this.getAttribute('person-id');
+        var data = {
+            name: new_name,
+            csrfmiddlewaretoken: '{{ csrf_token }}'
+        };
+
+        $.post('/api/person/' + person_id + '/', data);
+    }
+    
+});
+
+// редактирование даты
+
+// редактирование пола
+
+// удаление
 </script>
 <style>
 body {

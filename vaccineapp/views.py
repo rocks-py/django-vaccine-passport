@@ -33,12 +33,14 @@ def register(request):
 def promo(request):
     return render(request, 'promo.html')
 
+
 def settings(request):
     context = {}
-    person_list = Person.objects.filter(user__email__icontains=request.user.email)
+    person_list = Person.objects.filter(user__email__icontains=request.user.email).order_by('name')
     print(person_list)
     context['person_list'] = person_list
     return render(request, 'settings.html', context)
+
 
 @login_required(login_url='/promo')
 def index(request):
@@ -64,7 +66,7 @@ def index(request):
             context['errors'] = form.errors 
 
 
-    person_list = Person.objects.filter(user__email__icontains=request.user.email)
+    person_list = Person.objects.filter(user__email__icontains=request.user.email).order_by('name')
     for item in person_list:
         item.vaccine_data = PersonVaccine.objects.filter(person=item)
     context['person_list'] = person_list
@@ -73,18 +75,23 @@ def index(request):
     context['personForm'] = person
     return render(request, 'index.html', context) 
 
+
+
+
+
 class CollectionList(LoginRequiredMixin, ListView):
     model = Collection
+
+
+
 
 class CollectionDetail(LoginRequiredMixin, DetailView):
     model = Collection
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context["persons"] = Person.objects.filter(user__email__icontains=self.request.user.email)
+        context["persons"] = Person.objects.filter(user__email__icontains=self.request.user.email).order_by('name')
         return context
-    
-
 
 
 
@@ -107,12 +114,16 @@ def collection_json(request):
     collection_list = list(queryset.values('id', 'name'))
     return JsonResponse(collection_list, safe=False) 
 
+
+
 def disease_json(request, *args, **kwargs): 
     disease_pk = kwargs.get('pk') 
     queryset = Disease.objects.filter(pk=disease_pk)
 
     disease_list = list(queryset.values('id', 'name', 'vaccines', 'vaccines__name'))
     return JsonResponse(disease_list, safe=False) 
+
+
 
 def person_vaccine_item(request, *args, **kwargs): 
     person_vaccine_pk = kwargs.get('pk')
@@ -132,8 +143,29 @@ def person_vaccine_item(request, *args, **kwargs):
         obj.delete()
         return JsonResponse({'result': True }, safe=False) 
 
-import json
 
+def person(request, *args, **kwargs): 
+    person_pk = kwargs.get('pk')
+    if request.method == 'POST':
+        person = Person.objects.filter(pk=person_pk).first()
+        name = request.POST.get('name')
+        changed = False
+        if name:
+            person.name = name
+            changed = True
+
+        if changed:
+            person.save()
+        return JsonResponse({'result': True }, safe=False) 
+        
+    elif request.method == 'DELETE':
+        person = Person.objects.filter(pk=person_pk).first()
+        person.delete()
+        return JsonResponse({'result': True }, safe=False) 
+
+
+
+import json
 def post_person_vaccine(request, *args, **kwargs):
     # persons = request.POST.get('persons')
     # data = request.POST.get('data')
