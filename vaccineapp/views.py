@@ -158,6 +158,11 @@ def person(request, *args, **kwargs):
         if dateofbirth:
             person.dateofbirth = dateofbirth
             changed = True
+        
+        sex = request.POST.get('sex')
+        if sex:
+            person.sex = sex
+            changed = True
 
         if changed:
             person.save()

@@ -97,6 +97,15 @@ $('.person-table .person-birth-date').on('input', function(event) {
 });
 
 // редактирование пола
+$('.person-table .person-sex').on('change', function(event) {
+    var sex = $(this).val();
+    var person_id = this.getAttribute('person-id');
+    var data = {
+        sex: sex,
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+    };
+    $.post('/api/person/' + person_id + '/', data);
+});
 
 // удаление
 </script>
