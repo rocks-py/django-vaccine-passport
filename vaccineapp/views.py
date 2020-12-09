@@ -10,6 +10,9 @@ from django.http import JsonResponse
 def promo(request):
     return render(request, 'promo.html') 
 
+def login(request):
+    return render(request, 'login.html') 
+
 def index(request):
     # # if not request.user:
     # #     HttpResponseRedirect(reverse('promo'))

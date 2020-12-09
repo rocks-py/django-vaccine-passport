@@ -7,6 +7,7 @@
         aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
+    {% if user.is_authenticated %}
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
         <li class="nav-item {%if request.path_info == '/' %}active{%endif%}">
@@ -28,10 +29,12 @@
             <a class="dropdown-item" href="/logout"><i class="fa fa-sign-out-alt"></i>Выход</a>
         </div>
     </div>
-    {% comment %} <div>
-        <div class="avatar"></div>
-    </div> {% endcomment %}
-    
-    <script>
-    </script>
+    {%else%}
+    <div class="collapse navbar-collapse"></div>
+    <div class="nav-item dropdown my-2 my-lg-0" id="nav-user">
+        <a class="nav-link" href="/login" role="button">
+        Войти
+        </a>
+    </div>
+    {%endif%}
 </nav>
