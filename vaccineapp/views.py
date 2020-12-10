@@ -22,7 +22,7 @@ def register(request):
         print(request.user.is_authenticated)
         print(user)
         if user:
-            HttpResponseRedirect(reverse('login'))
+            return HttpResponseRedirect(reverse('login'))
             # print(request.user.is_authenticated)
             # template = "index.html"
             # return render(request, template, params)
